@@ -7,3 +7,10 @@
 meteor-platform
 autopublish
 insecure
+underscore
+fourseven:scss
+ewall:foundation
+accounts-password
+useraccounts:semantic-ui
+coffeescript
+iron:router
