@@ -1,19 +1,19 @@
 <template name="header">
-	<div class="contain-to-grid">
-		<nav class="top-bar" data-topbar role="navigation">
-		  <ul class="title-area">
-		    <li class="name">
-		      <h1><a href="#">Payrollsio</a></h1>
-		    </li>
-		  </ul>
-
-		  <section class="top-bar-section">
-		    <!-- Right Nav Section -->
-		    <ul class="right">
-		      {{> loginButtons align="right"}}
-		    </ul>
-				
-		  </section>
-		</nav>
-	</div>
+	<nav class="navbar navbar-default">
+	  <div class="container">
+	    <div class="navbar-header">
+	      <a class="navbar-brand" href="#">
+					Payrollsio
+	      </a>
+	    </div>
+	    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Profile</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            {{> loginButtons}} <!-- here -->
+        </ul>
+	    </div>
+	  </div>
+	</nav>
 </template>

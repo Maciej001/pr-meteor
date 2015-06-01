@@ -9,8 +9,8 @@ autopublish
 insecure
 underscore
 fourseven:scss
-ewall:foundation
 accounts-password
 coffeescript
 iron:router
-accounts-ui
+twbs:bootstrap
+ian:accounts-ui-bootstrap-3
