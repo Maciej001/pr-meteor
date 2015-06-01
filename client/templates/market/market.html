@@ -1,12 +1,19 @@
 <template name="market">
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-6 bids">
-				{{> bidsList}}
-			</div>
-			<div class="col-xs-6 offerss">
-				{{> offersList}}
-			</div>
+			<div class="col-xs-6 prices-panel">
+				<div class="row">
+					<div class="col-xs-6 bids">
+						{{> bidsList}}
+					</div>
+					<div class="col-xs-6 offerss">
+						{{> offersList}}
+					</div>
+				</div>
+			</div> <!-- End of prices-panel -->
+			<div class="col-xs-6 chart-panel">
+				Chart
+			</div>	
 		</div>
 	</div>
 </template>
