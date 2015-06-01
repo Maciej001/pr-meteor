@@ -4,7 +4,7 @@ if (Prices.find().count() === 0) {
 		Prices.insert({
 			side: 			'buy',
 			state: 			'active',
-			price: 			100-i*10,
+			price: 			100-i*5,
 			size: 			10,
 			userId: 		function() {return Meteor.userId()},
 			created_at: Date(),
