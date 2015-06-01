@@ -1,5 +1,12 @@
 <template name="market">
 	<div class="container">
-		Market
+		<div class="row">
+			<div class="col-xs-6 bids">
+				{{> bidsList}}
+			</div>
+			<div class="col-xs-6 offerss">
+				{{> offersList}}
+			</div>
+		</div>
 	</div>
 </template>
