@@ -1,6 +1,11 @@
 <template name="market">
 	<div class="container">
+		{{> statistics}}
+
 		<div class="row">
+			<div class="col-xs-12">
+				<button id="new-order" class="btn btn-primary">New order</button>
+			</div>
 			<div class="col-xs-6 prices-panel">
 				<div class="row">
 					<div class="col-xs-6 bids">
@@ -15,5 +20,15 @@
 				Chart
 			</div>	
 		</div>
+		
+		<div class="row">
+			<div class="col-xs-12 col-md-6">
+				{{> myOrders}}
+			</div>
+			<div class="col-xs-12 col-md-6">
+				{{> myTrades}}
+			</div>
+		</div>
+
 	</div>
 </template>
