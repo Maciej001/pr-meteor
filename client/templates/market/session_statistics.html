@@ -17,13 +17,15 @@
 		<div class="col-xs-6 my-account">
 			<h3>My Account</h3>
 			<ul>
-				<li>Trades: 3</li>
-				<li>Contracts traded:  7</li>
-				<li>Open position:  3</li>
-				<li>Average open position price: 256</li>
-				<li>Open position valuation: 1250</li>
-				<li>Cash: 99,000 Paycoins</li>
-				<li>Total account value: 100.250</li>
+				{{#with myAccount}}
+					<li>Trades: {{trades}}</li>
+					<li>Contracts traded:  {{contracts_traded}}</li>
+					<li>Open position:  {{open_position}}</li>
+					<li>Average open position price: {{avg_open_position_price}}</li>
+					<li>Open position valuation: {{open_position_value}}</li>
+					<li>Cash: {{cash}} Paycoins</li>
+					<li>Total account value: ?</li>
+				{{/with}}
 			</ul>
 		</div>
 	</div>

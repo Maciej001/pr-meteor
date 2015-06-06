@@ -35,3 +35,15 @@ if (Statistics.find().count() === 0){
 	});
 };
 
+if (Accounts.find().count() === 0) {
+	Accounts.insert({
+		userId: 									'YKXKs5tGZFX9qhAc4',
+		trades: 									0,
+		contracts_traded: 				0,
+		open_position: 						0,
+		avg_open_position_price: 	0,
+		open_position_value: 			0,
+		cash: 										0,
+	});
+};
+
