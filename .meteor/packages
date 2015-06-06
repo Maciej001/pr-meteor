@@ -11,5 +11,5 @@ fourseven:scss
 accounts-password
 coffeescript
 iron:router
-twbs:bootstrap
 ian:accounts-ui-bootstrap-3
+reywood:bootstrap3-sass

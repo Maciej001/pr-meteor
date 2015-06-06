@@ -22,4 +22,16 @@ if (Prices.find().count() === 0) {
 			updated_at: Date()
 		});
 	}
-}
+};
+
+if (Statistics.find().count() === 0){
+	Statistics.insert({
+		total_contracts_traded: 	254,
+		number_of_trades: 				32,
+		open: 										250,
+		high: 										270,
+		low: 											230,
+		last: 										255
+	});
+};
+

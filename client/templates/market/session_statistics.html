@@ -1,16 +1,19 @@
-<template name="statistics">
+<template name="sessionStatistics">
 	<div class="row">
 		<div class="col-xs-6 session-statistics">
 			<h3>Session Statistics</h3>
 			<ul>
-				<li>Total contracts traded: 254</li>
-				<li>Number of trades: 32</li>
-				<li>Open: 250</li>
-				<li>High: 270</li>
-				<li>Low:  240</li>
-				<li>Last: 255</li>
+				{{#with statistics}}
+					<li>Total contracts traded: {{total_contracts_traded }}</li>
+					<li>Number of trades: {{number_of_trades}}</li>
+					<li>Open: {{open}}</li>
+					<li>High: {{high}}</li>
+					<li>Low:  {{low}}</li>
+					<li>Last: {{last}}</li>
+				{{/with}}
 			</ul>
 		</div>
+
 		<div class="col-xs-6 my-account">
 			<h3>My Account</h3>
 			<ul>
