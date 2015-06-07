@@ -7,6 +7,6 @@ Meteor.publish('statistics', function(){
 });
 
 Meteor.publish('accounts', function(user_id){
-	return Accounts.find({userId:'YKXKs5tGZFX9qhAc4 '});
+	return userAccounts.find({userId:'YKXKs5tGZFX9qhAc4 '});
 });
 
