@@ -1,5 +1,5 @@
 Meteor.publish('prices', function(){
-	return Prices.find();
+	return Prices.find({state: 'active'});
 });
 
 Meteor.publish('statistics', function(){
@@ -7,5 +7,6 @@ Meteor.publish('statistics', function(){
 });
 
 Meteor.publish('accounts', function(user_id){
-	return Accounts.find({userId:'YKXKs5tGZFX9qhAc4'});
+	return Accounts.find({userId:'YKXKs5tGZFX9qhAc4 '});
 });
+
