@@ -7,17 +7,18 @@
 	<table>
 		<thead>
 			<tr>
-				<tr>
-					<th>Bid/Offer</th>
-					<th>Size</th>
-					<th>Left</th>
-					<th>Price</th>
-					<th>Date and time</th>
-					<th></th>
-				</tr>
+				<th>Side</th>
+				<th>Size</th>
+				<th>Price</th>
+				<th>Date and time</th>
+				<th></th>
 			</tr>
 		</thead>
-		<tbody></tbody>
+		<tbody>
+			{{#each myOrders}}
+				{{> myOrderItem }}
+			{{/each}}
+		</tbody>
 	</table>
 
 </template>

@@ -1,0 +1,32 @@
+<template name="myOrderItem">
+	<tr>
+		<!-- Side -->
+		<td> 
+			{{#if isBuy side}}
+				<i class='glyphicon glyphicon-arrow-up'></i>
+			{{else}}
+				<i class='glyphicon glyphicon-arrow-down'></i>
+			
+			{{/if}}
+
+			{{ side }}
+		</td>
+
+		<!-- Size -->
+		<td class='right-cell'>{{ size }}</td>
+
+		<!-- Size left -->
+		<!-- <td class='right-cell'></td> -->
+
+		<!-- Price -->
+		<td class='right-cell'>{{ price }}</td>
+
+		<!-- Updated -->
+		<td>{{updatedAt updated_at}}</td>
+
+		<!-- Actions -->
+		<td>
+			<button type="button" class="btn btn-danger btn-xs">Delete</button>
+		</td>
+	</tr>
+</template>

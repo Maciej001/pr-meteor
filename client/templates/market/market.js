@@ -5,7 +5,8 @@ Template.market.helpers({
 		} else {
 			return "newOrderButton";
 		}
-	}
+	},
+
 });
 
 Template.market.events({
@@ -34,4 +35,6 @@ Template.market.events({
 
 		Session.set('newOrder', false);
 	}
+
+
 });
