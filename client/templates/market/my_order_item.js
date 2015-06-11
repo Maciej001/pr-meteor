@@ -6,3 +6,14 @@ Template.myOrderItem.helpers({
 		return moment(time).format('D MMM, HH:mm:ss');
 	}
 });
+
+Template.myOrderItem.events({
+	'click .delete-order': function(e) {
+		e.preventDefault();
+
+		if (confirm("Delete Order?")) {
+			var currentOrderId = this._id;
+			Prices.remove(currentOrderId);
+		}
+	},
+});
