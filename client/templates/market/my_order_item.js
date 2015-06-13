@@ -11,9 +11,7 @@ Template.myOrderItem.events({
 	'click .delete-order': function(e) {
 		e.preventDefault();
 
-		if (confirm("Delete Order?")) {
-			var currentOrderId = this._id;
-			Prices.remove(currentOrderId);
-		}
+		var currentOrderId = this._id;
+		Prices.remove(currentOrderId);
 	},
 });
