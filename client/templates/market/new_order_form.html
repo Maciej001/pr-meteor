@@ -1,0 +1,41 @@
+<template name="newOrderForm">
+	<form class="form-horizontal">
+
+		<div class="radio">
+		  <label>
+		    <input type="radio" name="optionsRadios" id="optionsRadios1" value="buy" checked>
+					Buy
+		  </label>
+		</div>
+
+		<div class="radio">
+		  <label>
+		    <input type="radio" name="optionsRadios" id="optionsRadios2" value="sell">
+					Sell
+		  </label>
+		</div>
+
+	  <div class="form-group {{errorClass 'price'}}">
+	    <label for="inputPrice" class="col-sm-2 control-label">Price</label>
+	    <div class="col-sm-3">
+	      <input type="price" class="form-control" id="inputPrice">
+	    </div>
+	    <span class="help-block col-sm-12">{{errorMessage 'price'}}</span>
+	  </div>
+
+	  <div class="form-group {{errorClass 'size'}}">
+	    <label for="inputSize" class="col-sm-2 control-label">Size</label>
+	    <div class="col-sm-3">
+	      <input type="size" class="form-control" id="inputSize">
+	    </div>
+	    <span class="help-block col-sm-12">{{errorMessage 'size'}}</span>
+	  </div>
+	  
+	  <div class="form-group">
+	    <div class="col-sm-10">
+	      <button type="submit" class="btn btn-default">Place Order</button>
+	      <button type="cancel" class="btn btn-default cancel-new-order">Cancel</button>
+	    </div>
+	  </div>
+	</form>
+</template>

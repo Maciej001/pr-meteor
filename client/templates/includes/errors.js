@@ -4,6 +4,7 @@ Template.errors.helpers({
 	}
 });
 
+// css fades out each error template. this func removes it from the collection
 Template.error.onRendered(function() {
 	var error = this.data;
 	Meteor.setTimeout(function () {
