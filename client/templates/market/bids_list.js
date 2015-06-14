@@ -1,5 +1,5 @@
 Template.bidsList.helpers({
 	bids: function(){
-		return Prices.find({side: 'buy'}, {sort: {price: -1}});
+		return Bids.find({}, {sort: {price: -1}, limit: 5});
 	}
 });
