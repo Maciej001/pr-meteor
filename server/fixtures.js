@@ -11,8 +11,28 @@ if (Prices.find().count() === 0) {
 			updated_at: Date()
 		});
 
+		Bids.insert({
+			side: 			'buy',
+			state: 			'active',
+			price: 			100-i*5,
+			size: 			10,
+			userId: 		function() {return Meteor.userId()},
+			created_at: Date(),
+			updated_at: Date()
+		});
+
 		// insert offer
 		Prices.insert({
+			side: 			'sell',
+			state: 			'active',
+			price: 			100+i*10,
+			size: 			10,
+			userId: 		function() {return Meteor.userId()},
+			created_at: Date(),
+			updated_at: Date()
+		});
+
+		Offers.insert({
 			side: 			'sell',
 			state: 			'active',
 			price: 			100+i*10,

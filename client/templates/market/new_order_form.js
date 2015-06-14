@@ -27,6 +27,8 @@ Template.newOrderForm.events({
 			side: 				$(e.target).find('[value=buy]').is(':checked')  ? "buy" : "sell"
 		};
 
+		console.log('new order ' + order.side);
+
 		// check for errors on Client side
 		var errors = validateOrder(order);
 		if (errors.price || errors.size)
