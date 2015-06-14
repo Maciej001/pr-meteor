@@ -26,4 +26,17 @@ $small-radius:		4px;
 
 
 // Bootstrap variables overwrites;
+
+$font-family-sans-serif: 'Roboto', sans-serif;
 $navbar-height: 60px;
+$navbar-border-radius: 0;
+$navbar-default-color: 								$light-blue;
+$navbar-default-link-color: 					$light-blue;
+$navbar-default-link-hover-color:			darken($light-blue, 6.5%);
+$navbar-default-brand-color: 					$light-blue;
+$navbar-default-brand-hover-color:		$blue;
+$navbar-default-bg: 					none;
+$navbar-default-border: 			none;
+
+
+
