@@ -1,0 +1,77 @@
+.jumbo-header {
+
+	text-align: center;
+
+	h1 {
+		font-size: 4.5rem;
+		color: $light-blue;
+		padding-bottom: 30px;
+	}
+
+	a {
+		font-size: 2.2rem;
+		line-height: 60px;
+		color: $light-blue;
+		padding: 15px 35px;
+		border: 2px solid $light-blue;
+		border-radius: $medium-border-radius;
+		text-decoration: none;
+
+
+		&:hover {
+			color: white;
+			background: $light-blue;
+			transition: all 0.1s ease-in-out;
+		}
+
+		&:active {
+			background: $blue;
+		}
+	}
+}
+
+.how-it-works {
+	background: $blue;
+	text-align: center;
+	margin-top: 50px;
+	padding-top: 40px;
+	padding-bottom: 50px;
+	h1, h3 {
+		color: white;
+	}
+	h1 {
+		margin-bottom: 20px;
+	}
+
+	p {
+		color: $super-light-blue;
+		text-align: left;
+		font-size: 1.8rem;
+	}
+}
+
+.contract-standard {
+	background: $dark-blue;
+	text-align: center;
+	padding-top: 30px;
+	padding-bottom: 30px;
+
+	h1, h3, p {
+		color: $very-light-blue;
+	}
+
+	p {
+		font-size: 1.8rem;
+	}
+}
+
+.main-footer {
+	text-align: center;
+	background: $very-dark-blue;
+	color: lighten($very-dark-blue, 14%);
+
+	h4 {
+		line-height: 60px;
+		height: 60px;
+	}
+}
