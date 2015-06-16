@@ -231,13 +231,24 @@
   }
 }
 
-@include keyframes(exploding-stroke) {
+@keyframes exploding-stroke {
   0% {
     stroke-width: 10px;
     opacity: 1;
   }
   100% {
-    stroke-width: 40px;
+    stroke-width: 30px;
+    opacity:      0;
+  }
+}
+
+@-webkit-keyframes exploding-stroke {
+  0% {
+    stroke-width: 10px;
+    opacity: 1;
+  }
+  100% {
+    stroke-width: 30px;
     opacity:      0;
   }
 }
@@ -275,7 +286,7 @@ span.ct-label {
 .ct-chart .ct-series.ct-series-a .ct-point {
   @include ct-chart-point(20px);
   stroke: $light-blue;
-  // @include animation(exploding-stroke 2s ease-out infinite);
+  @include animation(exploding-stroke 2s ease-out infinite);
 }
 
 
