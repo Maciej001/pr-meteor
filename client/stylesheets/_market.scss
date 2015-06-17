@@ -1,0 +1,69 @@
+#sessionStatistics,  {
+	color: white;
+	background: $blue;
+	padding-bottom: 20px;
+
+	* {
+		font-weight: 300;
+	}
+
+	td:nth-child(2n) {
+		padding: 0 0 0 30px;
+		text-align: right;
+	}
+}
+
+#new-order-button {
+	padding: 0 0 20px 0;
+	button   {
+		color: white;
+		background: $yellow;
+		outline: $yellow;
+	}
+}
+
+#new-order-form {
+	padding: 20px 0;
+
+	form {
+		color: white;
+		background: $dark-blue;
+		width: 370px;
+		padding: 20px 40px 40px 40px; 
+		border-radius: $medium-border-radius;
+		margin-bottom: 20px;
+	}
+
+	.form-control{
+		width: 70px;
+	}
+
+	.radio {
+		display: inline-block;
+		margin-right: 30px;
+		padding-bottom: 10px;
+	}
+
+	.form-group { 
+		margin: 0;
+		label { 
+			padding-left: 0;
+			text-align: left;
+		}
+	}
+
+	button {
+		margin-right: 10px;
+		padding: 9px 23px;
+	}
+
+	button[type=submit] {
+		color: white;
+		background: $green;
+		border: none;
+		&:hover {
+			cursor: pointer;
+			background: lighten($green, 6.5%);
+		}
+	}
+}

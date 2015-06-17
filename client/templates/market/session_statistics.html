@@ -2,31 +2,71 @@
 	<div class="row">
 		<div class="col-xs-6 session-statistics">
 			<h3>Session Statistics</h3>
-			<ul>
+		
+			<table>
 				{{#with statistics}}
-					<li>Total contracts traded: {{total_contracts_traded }}</li>
-					<li>Number of trades: {{number_of_trades}}</li>
-					<li>Open: {{open}}</li>
-					<li>High: {{high}}</li>
-					<li>Low:  {{low}}</li>
-					<li>Last: {{last}}</li>
+					<tr>
+						<td>Contracts traded</td>
+						<td class='right-cell'>{{total_contracts_traded }}</td>
+					</tr>
+					<tr>
+						<td>Trades</td>
+						<td class='right-cell'>{{number_of_trades}}</td>
+					</tr>
+					<tr>
+						<td>Open</td>
+						<td class='right-cell'>{{open}}</td>
+					</tr>
+					<tr>
+						<td>High</td>
+						<td class='right-cell'>{{high}}</td>
+					</tr>
+					<tr>
+						<td>Low</td>
+						<td class='right-cell'>{{low}}</td>
+					</tr>
+					<tr>
+						<td>Last</td>
+						<td class='right-cell'>{{last}}</td>
+					</tr>
 				{{/with}}
-			</ul>
+			</table>
 		</div>
 
 		<div class="col-xs-6 my-account">
 			<h3>My Account</h3>
-			<ul>
-				{{#with userAccounts}}
-					<li>Trades: {{trades}}</li>
-					<li>Contracts traded:  {{contracts_traded}}</li>
-					<li>Open position:  {{open_position}}</li>
-					<li>Average open position price: {{avg_open_position_price}}</li>
-					<li>Open position valuation: {{open_position_value}}</li>
-					<li>Cash: {{cash}} Paycoins</li>
-					<!-- <li>Total account value: {{total_account_value}}</li> -->
-				{{/with}}
-			</ul>
+
+			{{#with userAccounts}}
+				<tr>
+					<td>Trades</td>
+					<td class='right-cell'>{{ trades }}</td>
+				</tr>
+				<tr>
+					<td>Contracts traded</td>
+					<td class='right-cell'>{{ contracts_traded }}</td>
+				</tr>
+				<tr>
+					<td>Open position</td>
+					<td class='right-cell'>{{ open_position }}</td>
+				</tr>
+				<tr>
+					<td>Average open position price</td>
+					<td class='right-cell'>{{ avg_open_position_price }}</td>
+				</tr>
+				<tr>
+					<td>Open position valuation</td>
+					<td class='right-cell'>{{ open_position_value }}</td>
+				</tr>
+				<tr>
+					<td>Cash</td>
+					<td class='right-cell'>{{ cash }}</td>
+				</tr>
+				<tr>
+					<td>Total account value</td>
+					<td class='right-cell'>100</td>
+				</tr>
+			{{/with}}
+
 		</div>
 	</div>
 </template>

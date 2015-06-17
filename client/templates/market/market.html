@@ -1,28 +1,40 @@
 <template name="market">
-	<div class="container">
-		{{> sessionStatistics}}
-
-		<div class="row">
-
-			<div class="col-xs-6 prices-panel">
-				<div class="row">
-					
-					{{> Template.dynamic template=newOrderTemplate}}
-
-					<div class="col-xs-6 bids">
-						{{> bidsList}}
-					</div>
-
-					<div class="col-xs-6 offerss">
-						{{> offersList}}
-					</div>
-
-				</div> <!-- Row ends -->
-			</div> <!-- End of prices-panel -->
-			<div class="col-xs-6 chart-panel">
-				Chart
-			</div>	
+	<div class="container-fluid" id="sessionStatistics">
+		<div class="container">
+			{{> sessionStatistics}}
 		</div>
+	</div>
+
+	<div class="container-fluid" id="new-order-form">
+		<div class="container">
+			<div class="row">
+
+				<div class="col-xs-12 col-md-6 prices-panel">
+					<div class="row">
+						<div class="col-xs-12">
+							{{> Template.dynamic template=newOrderTemplate}}
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-xs-6 bids">
+							{{> bidsList}}
+						</div>
+
+						<div class="col-xs-6 offers">
+							{{> offersList}}
+						</div>
+					</div> <!-- Row ends -->
+				</div> <!-- End of prices-panel -->
+
+				<div class="col-xs-12 col-md-6 chart-panel">
+					Chart
+				</div>	
+			</div>
+		</div>
+	</div> <!-- container-fluid ends -->
+
+	<div class="container-fluid">
 		
 		<div class="row">
 			<div class="col-xs-12 col-md-6">
