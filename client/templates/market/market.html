@@ -7,9 +7,11 @@
 
 	<div class="container-fluid" id="new-order-form">
 		<div class="container">
+
 			<div class="row">
 
 				<div class="col-xs-12 col-md-6 prices-panel">
+
 					<div class="row">
 						<div class="col-xs-12">
 							{{> Template.dynamic template=newOrderTemplate}}
@@ -17,12 +19,8 @@
 					</div>
 
 					<div class="row">
-						<div class="col-xs-6 bids">
-							{{> bidsList}}
-						</div>
-
-						<div class="col-xs-6 offers">
-							{{> offersList}}
+						<div class="col-xs-12 prices-list">
+							{{> pricesList}}
 						</div>
 					</div> <!-- Row ends -->
 				</div> <!-- End of prices-panel -->
@@ -30,8 +28,9 @@
 				<div class="col-xs-12 col-md-6 chart-panel">
 					Chart
 				</div>	
-			</div>
-		</div>
+
+			</div> 
+		</div> <!-- container ends -->
 	</div> <!-- container-fluid ends -->
 
 	<div class="container-fluid">
