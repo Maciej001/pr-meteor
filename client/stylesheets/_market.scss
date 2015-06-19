@@ -63,7 +63,7 @@
 		border: none;
 		&:hover {
 			cursor: pointer;
-			background: lighten($yellow, 6.5%);
+			background: darken($yellow, 6.5%);
 		}
 	}
 }
@@ -107,6 +107,8 @@
 #my-activity {
 	background: $blue;
 	padding: 20px 0;
+
+	* {font-weight: 300;}
 	
 	h4, li, a, td, th {
 		color: white;
