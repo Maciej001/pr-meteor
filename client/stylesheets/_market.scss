@@ -14,11 +14,11 @@
 }
 
 #new-order-button {
-	padding: 0 0 20px 0;
+	padding: 0;
 	button   {
+		width: 102px;
 		color: white;
 		background: $yellow;
-		outline: $yellow;
 	}
 }
 
@@ -27,7 +27,7 @@
 
 	form {
 		color: white;
-		background: $dark-blue;
+		background: $blue;
 		width: 370px;
 		padding: 20px 40px 40px 40px; 
 		border-radius: $medium-border-radius;
@@ -59,11 +59,11 @@
 
 	button[type=submit] {
 		color: white;
-		background: $green;
+		background: $yellow;
 		border: none;
 		&:hover {
 			cursor: pointer;
-			background: lighten($green, 6.5%);
+			background: lighten($yellow, 6.5%);
 		}
 	}
 }
@@ -88,7 +88,7 @@
 	}
 
 	.size {
-		color: $very-light-blue;
+		color: lighten($blue, 20%);
 		font-size: 1.5rem;
 	}
 
@@ -99,6 +99,36 @@
 
 .bids {
 	margin-right: 2px;
+	margin-bottom: 0;
+}
+
+// My Active Orders & My Trades
+
+#my-activity {
+	background: $blue;
+	padding: 20px 0;
+	
+	h4, li, a, td, th {
+		color: white;
+	}
+
+	th, td {
+		padding: 10px 10px;
+		border-top: 1px solid lighten($blue, 5%);
+	}
+}
+
+.right-cell {
+	text-align: right;
+}
+
+
+.glyphicon-arrow-up {
+	color: $green;
+}
+
+.glyphicon-arrow-down {
+	color: $red;
 }
 
 

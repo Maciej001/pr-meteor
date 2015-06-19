@@ -33,16 +33,16 @@
 		</div> <!-- container ends -->
 	</div> <!-- container-fluid ends -->
 
-	<div class="container-fluid">
-		
-		<div class="row">
-			<div class="col-xs-12 col-md-6">
-				{{> myOrders}}
-			</div>
-			<div class="col-xs-12 col-md-6">
-				{{> myTrades}}
+	<div class="container-fluid" id="my-activity">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 col-md-6" id="my-orders">
+					{{> myOrders}}
+				</div>
+				<div class="col-xs-12 col-md-6">
+					{{> myTrades}}
+				</div>
 			</div>
 		</div>
-
 	</div>
 </template>
