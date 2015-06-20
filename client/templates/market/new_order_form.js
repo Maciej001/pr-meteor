@@ -24,6 +24,7 @@ Template.newOrderForm.events({
 		var order = {
 			price: 				Number($(e.target).find('[type=price]').val()),
 			size: 				Number($(e.target).find('[type=size]').val()),
+			size_left:    Number($(e.target).find('[type=size]').val()),
 			side: 				$(e.target).find('[value=buy]').is(':checked')  ? "buy" : "sell"
 		};
 

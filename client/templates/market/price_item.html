@@ -1,8 +1,12 @@
 <template name="priceItem">
 	<li class="price-item">
 		<button type="button" class="btn btn-primary">
-			<h3 class="price">{{price}}
-				<span class="size">{{size}}</span>
+			<h3 class="price">
+				{{#if myPrice}}
+					<i class="glyphicon glyphicon-eye-open my-price"></i>
+				{{/if}}
+				{{price}}
+				<span class="size">{{size_left}}</span>
 			</h3>
 			
 		</button>

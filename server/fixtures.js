@@ -22,7 +22,6 @@ Accounts.onLogin(function(user){
 				price: 			100-i*5,
 				size: 			10,
 				size_left: 	10,
-				userId: 		currentUserId,
 				created_at: Date(),
 				updated_at: Date()
 			});
@@ -45,14 +44,11 @@ Accounts.onLogin(function(user){
 				price: 			100+i*10,
 				size: 			10,
 				size_left: 	10,
-				userId: 		currentUserId,
 				created_at: Date(),
 				updated_at: Date()
 			});
 		}
 	};
-
-
 
 
 	if (Statistics.find().count() === 0 ){
