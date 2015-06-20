@@ -1,4 +1,4 @@
-<template name="myOrderItem">
+<template name="myTradeItem">
 	<tr>
 		<!-- Side -->
 		<td> 
@@ -17,15 +17,7 @@
 		<!-- Size -->
 		<td class='right-cell'>{{ size }}</td>
 
-		<!-- Size left -->
-		<td class='right-cell'>{{ size_left }}</td>
-
 		<!-- Updated -->
 		<td>{{updatedAt updated_at}}</td>
-
-		<!-- Actions -->
-		<td>
-			<button type="button" class="btn btn-danger btn-xs delete-order">Delete</button>
-		</td>
 	</tr>
 </template>

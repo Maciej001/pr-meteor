@@ -10,11 +10,15 @@ Meteor.publish('offers', function(){
 	return Offers.find({state: 'active'});
 });
 
+Meteor.publish('trades', function(){
+	return Trades.find();
+});
+
 Meteor.publish('statistics', function(){
 	return Statistics.find({}, {limit: 1});
 });
 
 Meteor.publish('accounts', function(user_id){
-	return userAccounts.find({userId:'YKXKs5tGZFX9qhAc4 '});
+	return userAccounts.find({userId:'YKXKs5tGZFX9qhAc4 '}); 
 });
 

@@ -8,12 +8,16 @@
 			<tr>
 				<tr>
 					<th>Buy/Sell</th>
-					<th>Size</th>
 					<th>Price</th>
+					<th>Size</th>
 					<th>Date and time</th>
 				</tr>
 			</tr>
 		</thead>
-		<tbody></tbody>
+		<tbody>
+			{{#each myTrades}}
+				{{> myTradeItem }}
+			{{/each}}
+		</tbody>
 	</table>
 </template>
