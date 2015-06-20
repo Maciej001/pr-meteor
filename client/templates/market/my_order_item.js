@@ -25,20 +25,26 @@ Template.myOrderItem.events({
 
 removeBid = function(order){
 	var bid = Bids.findOne({price: order.price})
-	if (order.size == bid.size) {
+
+	// if bid is build from single price
+	if (bid.prices.length === 1) {
 		Bids.remove(bid._id);
+		console.log('total removal');
 	}
 	else {
-		Bids.update(bid._id, {$inc: {size: -order.size}});
+		console.log('partial removal');
+		Bids.update(bid._id, { $inc: { size_left: -order.size_left }, $pull: { prices: order._id } });
 	}
 };
 
 removeOffer = function(order){
 	var offer = Offers.findOne({price: order.price})
-	if (order.size == offer.size) {
+
+	// if offer is build from single price
+	if (offer.prices.length === 1) {
 		Offers.remove(offer._id);
 	}
 	else {
-		Offers.update(offer._id, {$inc: {size: -order.size}});
+		Offers.update(offer._id, { $inc: { size_left: -order.size_left }, $pull: { prices: order._id } });
 	}
 };
