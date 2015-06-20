@@ -16,7 +16,7 @@ Template.homePage.onRendered(function() {
 				showGrid: 	true,
 				low: 				100,
 				high: 			1000,
-				divisor: 		3,
+				divisor: 		5,
 
 			},
 			chartPadding: {

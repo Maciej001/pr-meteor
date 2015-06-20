@@ -29,10 +29,9 @@ removeBid = function(order){
 	// if bid is build from single price
 	if (bid.prices.length === 1) {
 		Bids.remove(bid._id);
-		console.log('total removal');
 	}
 	else {
-		console.log('partial removal');
+		// decrease size left on the bid, and pull references to prices
 		Bids.update(bid._id, { $inc: { size_left: -order.size_left }, $pull: { prices: order._id } });
 	}
 };
@@ -45,6 +44,7 @@ removeOffer = function(order){
 		Offers.remove(offer._id);
 	}
 	else {
+		// decrease size left on the offer, and pull references to prices
 		Offers.update(offer._id, { $inc: { size_left: -order.size_left }, $pull: { prices: order._id } });
 	}
 };
