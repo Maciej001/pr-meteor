@@ -16,7 +16,7 @@
 #new-order-button {
 	padding: 0;
 	button   {
-		width: 102px;
+		width: 121px;
 		color: white;
 		background: $yellow;
 	}
@@ -82,12 +82,16 @@
 }
 
 .bids, .offers {
+	display: inline-block;
+	width: 120px;
+	min-height: 100px;
+
 	button, button.btn.btn-primary {
 		border-radius: 0;
 		border: none;
 		margin: 0;
 		padding: 0;
-		width: 100px;
+		width: 120px;
 	}
 
 	.price {
