@@ -36,7 +36,7 @@
 		<div class="col-xs-6 my-account">
 			<h3>My Account</h3>
 
-			{{#with myAccount}}
+			{{#with myPortfolio}}
 				<tr>
 					<td>Trades</td>
 					<td class='right-cell'>{{ number_of_trades }}</td>
@@ -51,11 +51,11 @@
 				</tr>
 				<tr>
 					<td>Average open position price</td>
-					<td class='right-cell'>{{ avg_open_position_price }}</td>
+					<td class='right-cell'>{{ avgPositionPrice }}</td>
 				</tr>
 				<tr>
-					<td>Open position valuation</td>
-					<td class='right-cell'>{{ open_position_value }}</td>
+					<td>Open position value </td>
+					<td class='right-cell'>{{ openPositionValue }}</td>
 				</tr>
 				<tr>
 					<td>Cash</td>
@@ -63,7 +63,7 @@
 				</tr>
 				<tr>
 					<td>Total account value</td>
-					<td class='right-cell'>100</td>
+					<td class='right-cell'>{{  totalAccountValue }}</td>
 				</tr>
 			{{/with}}
 
