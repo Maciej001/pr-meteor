@@ -1,13 +1,13 @@
 Meteor.publish('prices', function(){
-	return Prices.find({state: 'active'});
+	return Prices.find({ state: 'active' });
 });
 
 Meteor.publish('bids', function(){
-	return Bids.find({state: 'active'});
+	return Bids.find({ state: 'active' });
 });
 
 Meteor.publish('offers', function(){
-	return Offers.find({state: 'active'});
+	return Offers.find({ state: 'active' });
 });
 
 Meteor.publish('trades', function(){
@@ -15,10 +15,12 @@ Meteor.publish('trades', function(){
 });
 
 Meteor.publish('statistics', function(){
-	return Statistics.find({}, {limit: 1});
+	return Statistics.find({}, { limit: 1 });
 });
 
-Meteor.publish('accounts', function(user_id){
-	return userAccounts.find({userId:'YKXKs5tGZFX9qhAc4 '}); 
+Meteor.publish('portfolios', function(){
+	// check(this.userId, String);
+
+	return Portfolios.find({ userId: this.userId })
 });
 
