@@ -4,15 +4,5 @@ Template.sessionStatistics.helpers({
 	}, 
 	myPortfolio: function(){
 		return Portfolios.findOne({ userId: Meteor.userId() });
-	},
-
-	openPositionValue: function() {
-		return 0;
-	},
-	avgPositionPrice: function() {
-		return 0;
-	},
-	totalAccountValue: function() {
-		return 0;
 	}
 });

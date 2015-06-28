@@ -6,12 +6,12 @@
 			<table>
 				{{#with statistics}}
 					<tr>
-						<td>Contracts traded</td>
-						<td class='right-cell'>{{total_contracts_traded }}</td>
-					</tr>
-					<tr>
 						<td>Trades</td>
 						<td class='right-cell'>{{number_of_trades}}</td>
+					</tr>
+					<tr>
+						<td>Contracts traded</td>
+						<td class='right-cell'>{{total_contracts_traded }}</td>
 					</tr>
 					<tr>
 						<td>Open</td>
@@ -51,7 +51,7 @@
 				</tr>
 				<tr>
 					<td>Average open position price</td>
-					<td class='right-cell'>{{ avgPositionPrice }}</td>
+					<td class='right-cell'>{{ avgOpenPositionPrice }}</td>
 				</tr>
 				<tr>
 					<td>Open position value </td>

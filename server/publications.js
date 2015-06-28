@@ -21,6 +21,6 @@ Meteor.publish('statistics', function(){
 Meteor.publish('portfolios', function(){
 	// check(this.userId, String);
 
-	return Portfolios.find({ userId: this.userId })
+	return Portfolios.find();
 });
 
