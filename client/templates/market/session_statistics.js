@@ -6,31 +6,41 @@ Template.sessionStatistics.helpers({
 		return Portfolios.findOne({ userId: Meteor.userId() });
 	},
 	myPortfolioDynamicValues: function(){
-		var portfolio = 				Portfolios.find({userId: Meteor.userId()});
-		var contractsBought = 	0;
-		var contractsSold = 		0;
-		var openPosition = 			0;
+		var multiplier = 						10;
+		var portfolio = 						Portfolios.findOne({userId: Meteor.userId()});
+		var statistics =						Statistics.findOne();
+		var contractsBought = 			0;
+		var contractsSold = 				0;
+		var openPosition = 					0;
 		var avgBuyPrice;
 		var avgSellPrice;
+		var openPositionValue = 	null;
+		var avgMarketPrice = 			null;
+		var initialCash =					portfolio.cash;
+		var closedProfit = 				0;
+		var cash =								initialCash;
 
-		var buyTrades = 	Trades.find({userId: Meteor.userId(), side: 'buy'});
-		var sellTrades = 	Trades.find({userId: Meteor.userId(), side: 'sell'});
+		var bestBid = 						Bids.findOne({}, { sort: { price: -1 } });
+		var bestOffer = 					Offers.findOne({}, { sort: { price: 1 } });
 
-		if (buyTrades.count()>0) {
+		var buyTrades = 					Trades.find({userId: Meteor.userId(), side: 'buy'});
+		var buyTradesCount = 			buyTrades.count();
+		var sellTrades = 					Trades.find({userId: Meteor.userId(), side: 'sell'});
+		var sellTradesCount = 		sellTrades.count();
+
+		if (buyTradesCount > 0) {
 			contractsBought = 	sumOfFields(buyTrades, 'size');
 			avgBuyPrice = 			Math.round(sumOfMultipliedFields(buyTrades,  'size', 'price') / contractsBought * 10) / 10 ;
 		}
 
-		if (sellTrades.count()>0) {
+		if (sellTradesCount > 0) {
 			contractsSold = 		sumOfFields(sellTrades, 'size');
 			avgSellPrice = 			Math.round(sumOfMultipliedFields(sellTrades, 'size', 'price') / contractsSold   * 10) / 10;
 		}
 
-		
-		if (buyTrades.count()>0 || sellTrades.count()>0) {
+		if (buyTradesCount !== sellTradesCount ) {
 			openPosition  = contractsBought - contractsSold;
 		}
-
 
 		if (openPosition > 0 ) {
 			avgOpenPositionPrice = avgBuyPrice;
@@ -40,12 +50,38 @@ Template.sessionStatistics.helpers({
 			avgOpenPositionPrice = null;
 		}
 
+		// Find current average market price or use last trade if there were at least single trade
+		// otherwise it's null
+		if (!!bestBid && !!bestOffer) {
+			avgMarketPrice = (bestBid.price + bestOffer.price) / 2;
+		} else if (Trades.find().count() > 0) {
+			avgMarketPrice = statistics.last;
+		}
+
+		if (openPosition !== 0  && !!avgMarketPrice) {
+			
+			openPositionValue  = Math.round(multiplier * openPosition * (avgMarketPrice - avgOpenPositionPrice) * 10) / 10;
+		}
+
+		// Calculate current cash position if there are any closed trades
+		if (buyTradesCount > 0 && sellTradesCount > 0) {
+			if (contractsBought >= contractsSold) {
+				closedProfit = multiplier * contractsSold * (avgBuyPrice - avgSellPrice);
+			} else {
+				closedProfit = multiplier * contractsBought * (avgBuyPrice - avgSellPrice);
+			}
+
+			cash = initialCash + closedProfit;
+		}
+
+
 		return {
-			openPosition: openPosition,
-			avgOpenPositionPrice: avgOpenPositionPrice,
-			openPositionValue:    25,
-			cash: 								30,
-			totalAccountValue:  		40
+			openPosition: 					openPosition,
+			avgOpenPositionPrice: 	avgOpenPositionPrice,
+			openPositionValue:    	openPositionValue,
+			revalPrice: 						avgMarketPrice,
+			cash: 									cash,
+			totalAccountValue:  		cash + openPositionValue
 		}
 	}
 });
