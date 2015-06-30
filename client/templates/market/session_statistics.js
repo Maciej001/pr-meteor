@@ -30,12 +30,12 @@ Template.sessionStatistics.helpers({
 
 		if (buyTradesCount > 0) {
 			contractsBought = 	sumOfFields(buyTrades, 'size');
-			avgBuyPrice = 			Math.round(sumOfMultipliedFields(buyTrades,  'size', 'price') / contractsBought * 10) / 10 ;
+			avgBuyPrice = 			sumOfMultipliedFields(buyTrades,  'size', 'price') / contractsBought ;
 		}
 
 		if (sellTradesCount > 0) {
 			contractsSold = 		sumOfFields(sellTrades, 'size');
-			avgSellPrice = 			Math.round(sumOfMultipliedFields(sellTrades, 'size', 'price') / contractsSold   * 10) / 10;
+			avgSellPrice = 			sumOfMultipliedFields(sellTrades, 'size', 'price') / contractsSold;
 		}
 
 		if (buyTradesCount !== sellTradesCount ) {
@@ -60,28 +60,28 @@ Template.sessionStatistics.helpers({
 
 		if (openPosition !== 0  && !!avgMarketPrice) {
 			
-			openPositionValue  = Math.round(multiplier * openPosition * (avgMarketPrice - avgOpenPositionPrice) * 10) / 10;
+			openPositionValue  = multiplier * openPosition * (avgMarketPrice - avgOpenPositionPrice);
 		}
 
 		// Calculate current cash position if there are any closed trades
 		if (buyTradesCount > 0 && sellTradesCount > 0) {
 			if (contractsBought >= contractsSold) {
-				closedProfit = multiplier * contractsSold * (avgBuyPrice - avgSellPrice);
+				closedProfit = multiplier * contractsSold * (avgSellPrice - avgBuyPrice);
 			} else {
 				closedProfit = multiplier * contractsBought * (avgBuyPrice - avgSellPrice);
 			}
 
 			cash = initialCash + closedProfit;
 		}
-
+ 
 
 		return {
 			openPosition: 					openPosition,
-			avgOpenPositionPrice: 	avgOpenPositionPrice,
-			openPositionValue:    	openPositionValue,
-			revalPrice: 						avgMarketPrice,
-			cash: 									cash,
-			totalAccountValue:  		cash + openPositionValue
+			avgOpenPositionPrice: 	Math.round(avgOpenPositionPrice * 10)/10,
+			openPositionValue:    	Math.round(openPositionValue * 10)/10,
+			revalPrice: 						Math.round(avgMarketPrice * 10)/10,
+			cash: 									Math.round(cash * 100)/100,
+			totalAccountValue:  		Math.round(cash * 100)/100 + openPositionValue
 		}
 	}
 });
