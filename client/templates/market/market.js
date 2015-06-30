@@ -11,16 +11,7 @@ Template.market.onRendered(function(){
 	var headerHeight = 	50;
 	var sessionHeight = this.$("#sessionStatistics").height();
 	var pricesHeight = 	this.$("#prices-panel").height();
-
 	var remainingHeight = (bodyHeight - headerHeight - sessionHeight - pricesHeight).toString() + "px";
-
-
-	console.log('body h ', bodyHeight);
-	console.log('headerHeight ', headerHeight);
-	console.log('session he ', sessionHeight );
-	console.log('prices h ', pricesHeight);
-
-	console.log('remaining height ', remainingHeight);
 
 	$("#my-activity").css("min-height", remainingHeight );
 });

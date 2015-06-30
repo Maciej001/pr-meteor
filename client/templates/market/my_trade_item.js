@@ -3,6 +3,6 @@ Template.myTradeItem.helpers({
 		return side==='buy' ? true : false;
 	}, 
 	updatedAt: function(time) {
-		return moment(time).format('D MMM, HH:mm:ss');
+		return moment(this.created_at).format('D MMM, HH:mm:ss');
 	}
 });

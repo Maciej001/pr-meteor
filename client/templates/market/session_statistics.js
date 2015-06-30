@@ -75,11 +75,11 @@ Template.sessionStatistics.helpers({
 
 		return {
 			openPosition: 					openPosition,
-			avgOpenPositionPrice: 	commaSeparateNumber(avgOpenPositionPrice.toFixed(2)),
-			openPositionValue:    	commaSeparateNumber(openPositionValue.toFixed(2)),
-			revalPrice: 						commaSeparateNumber(avgMarketPrice.toFixed(2)),
-			cash: 									commaSeparateNumber(cash.toFixed(2)),
-			totalAccountValue:  		commaSeparateNumber((cash + openPositionValue).toFixed(2))
+			avgOpenPositionPrice: 	commaSeparateNumber(   (Math.round(avgOpenPositionPrice * 100 )/100).toFixed(2)),
+			openPositionValue:    	commaSeparateNumber(   (Math.round(openPositionValue * 100)/100).toFixed(2)),
+			revalPrice: 						commaSeparateNumber(   (Math.round(avgMarketPrice * 100)/100).toFixed(2)),
+			cash: 									commaSeparateNumber(   (Math.round(cash * 100)/100).toFixed(2)),
+			totalAccountValue:  		commaSeparateNumber(   (Math.round((cash + openPositionValue) * 100)/100).toFixed(2))
 		}
 	}
 });
