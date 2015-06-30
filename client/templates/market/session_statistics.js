@@ -72,19 +72,24 @@ Template.sessionStatistics.helpers({
 
 			cash = initialCash + closedProfit;
 		}
- 
- 		console.log('closed profit ',closedProfit);
 
 		return {
 			openPosition: 					openPosition,
-			avgOpenPositionPrice: 	Math.round(avgOpenPositionPrice * 10)/10,
-			openPositionValue:    	Math.round(openPositionValue * 10)/10,
-			revalPrice: 						Math.round(avgMarketPrice * 10)/10,
-			cash: 									Math.round(cash * 100)/100,
-			totalAccountValue:  		Math.round((cash + openPositionValue) * 100)/100 
+			avgOpenPositionPrice: 	commaSeparateNumber(avgOpenPositionPrice.toFixed(2)),
+			openPositionValue:    	commaSeparateNumber(openPositionValue.toFixed(2)),
+			revalPrice: 						commaSeparateNumber(avgMarketPrice.toFixed(2)),
+			cash: 									commaSeparateNumber(cash.toFixed(2)),
+			totalAccountValue:  		commaSeparateNumber((cash + openPositionValue).toFixed(2))
 		}
 	}
 });
+
+commaSeparateNumber = function(val){
+    while (/(\d+)(\d{3})/.test(val.toString())){
+      val = val.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
+    }
+    return val;
+  }
 
 sumOfFields = function(collection, field) {
 	return _.reduce(
