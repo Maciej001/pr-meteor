@@ -59,7 +59,6 @@ Template.sessionStatistics.helpers({
 		}
 
 		if (openPosition !== 0  && !!avgMarketPrice) {
-			
 			openPositionValue  = multiplier * openPosition * (avgMarketPrice - avgOpenPositionPrice);
 		}
 
@@ -68,12 +67,13 @@ Template.sessionStatistics.helpers({
 			if (contractsBought >= contractsSold) {
 				closedProfit = multiplier * contractsSold * (avgSellPrice - avgBuyPrice);
 			} else {
-				closedProfit = multiplier * contractsBought * (avgBuyPrice - avgSellPrice);
+				closedProfit = multiplier * contractsBought * (avgSellPrice - avgBuyPrice);
 			}
 
 			cash = initialCash + closedProfit;
 		}
  
+ 		console.log('closed profit ',closedProfit);
 
 		return {
 			openPosition: 					openPosition,
@@ -81,7 +81,7 @@ Template.sessionStatistics.helpers({
 			openPositionValue:    	Math.round(openPositionValue * 10)/10,
 			revalPrice: 						Math.round(avgMarketPrice * 10)/10,
 			cash: 									Math.round(cash * 100)/100,
-			totalAccountValue:  		Math.round(cash * 100)/100 + openPositionValue
+			totalAccountValue:  		Math.round((cash + openPositionValue) * 100)/100 
 		}
 	}
 });
