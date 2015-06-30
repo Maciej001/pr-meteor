@@ -1,10 +1,12 @@
 <template name="pricesList">
 	<ul class="bids">
+		<li class="price-item price-item-header">Bids</li>
 		{{#each bids}}
 			{{>	priceItem}}
 		{{/each}}
 	</ul>
 	<ul class="offers">
+		<li class="price-item price-item-header">Offers</li>
 		{{#each offers}}
 			{{> priceItem}}
 		{{/each}}

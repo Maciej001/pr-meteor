@@ -3,6 +3,10 @@
 	font-family: 'Roboto', sans-serif;
 }
 
+body, html, #main-wrapper {
+ height: 100%;
+}
+
 * ul {
 	list-style-type: none;
 	padding-left: 10px;

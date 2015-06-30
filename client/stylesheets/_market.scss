@@ -69,7 +69,7 @@
 }
 
 .prices-panel {
-	margin-bottom: 10px;
+	margin-bottom: 20px;
 	ul {
 		padding: 0;
 		float: left;
@@ -106,6 +106,14 @@
 	.price-item {
 		margin-bottom: 2px;
 	}
+}
+
+.price-item-header {
+	color: white;
+	background: $dark-blue;
+	text-align: center;
+	font-size: 2rem;
+	padding: 5px;
 }
 
 .bids {
