@@ -1,6 +1,5 @@
 Template.header.helpers({
 	youAreAdmin: function() {
-		var cUser = Meteor.user();
-		return (cUser.emails[0].address === 'maciej@gmail.com');
+		return (Meteor.user().emails[0].address === 'maciej@gmail.com');
 	}
 });

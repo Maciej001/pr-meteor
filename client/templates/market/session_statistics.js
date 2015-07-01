@@ -5,6 +5,21 @@ Template.sessionStatistics.helpers({
 	myPortfolio: function(){
 		return Portfolios.findOne({ userId: Meteor.userId() });
 	},
+
+	estimatedValue: function(){
+		if (_.isNumber(this.estimatedValue)) {
+			return this.estimatedValue
+		} else {
+			return ""
+		}
+	},
+	actualValue: function(){
+		if (_.isNumber(this.actualValue)) {
+			return this.actualValue;
+		} else {
+			return "not available yet"
+		}
+	},
 	myPortfolioDynamicValues: function(){
 		var multiplier = 						10;
 		var portfolio = 						Portfolios.findOne({userId: Meteor.userId()});

@@ -1,3 +1,43 @@
 <template name="adminPanel">
+
+<div class="container-fluid" id="admin-panel">
+	<div class="container">
+		<form class="form-horizontal admin-form">
+			<h4>Market Setup</h4>
+			<h5><span>Current Time: </span>{{ currentTime }}</h5>
+
+		  <div class="form-group form-number">
+		    <label for="estimatedValue" class="col-xs-6">Estimated Value</label>
+		    <div class="input-group">
+					<input type="number" class="form-control col-xs-6" id="estimatedValue">
+					<div class="input-group-addon">,000</div>
+				</div>
+		  </div>
+
+		  <div class="form-group form-number">
+		    <label for="actualValue" class="col-xs-6">Actual Value</label>
+		    <div class="input-group">
+			    <input type="number" class="form-control col-xs-6" id="actualValue">
+			    <div class="input-group-addon">,000</div>
+		    </div>
+		  </div>
+		  
+		  <div class="form-group form-hour">
+		    <label for="openHour" class="col-xs-6">Market opens at</label>
+		    <input type="hour" class="form-control col-xs-6" id="openHour">
+		  </div>
+
+		  <div class="form-group form-hour">
+		    <label for="closeHour" class="col-xs-6">Market closes at</label>
+		    <input type="hour" class="form-control col-xs-6" id="closeHour">
+		  </div>
+
+		  <div class="form-group">
+		      <button type="submit" class="btn btn-default btn-lg btn-yellow">Save</button>
+		  </div>
+		</form>
+
+	</div>
+</div>
 	
 </template>

@@ -4,3 +4,45 @@
 	padding: 5px 10px;
 	border-radius: $medium-border-radius;
 }
+
+.form-horizontal .form-group {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.admin-form-button {
+	background: $yellow;
+	color: 	white;
+	border: none;
+}
+
+.form-number, .form-hour {
+	width: 300px;
+
+	label {
+		padding-left: 0;
+	}
+}
+
+.admin-form {
+	margin-top: 40px;
+}
+
+.admin-form input {
+	text-align: right;
+}
+
+.admin-form input[type=hour] {
+	width: 60px;
+}
+
+.admin-form h4 {
+	color: $red;
+}
+
+.admin-form label {
+	height: 34px;
+	line-height: 34px;
+	margin-bottom: 0;
+	color: $gray;
+}
