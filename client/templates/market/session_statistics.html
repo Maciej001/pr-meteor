@@ -1,6 +1,7 @@
 <template name="sessionStatistics">
 	<div class="row">
-		<div class="col-xs-6 session-statistics">
+
+		<div class="col-xs-6 col-md-4 session-statistics">
 			<h3>Session Statistics</h3>
 		
 			<table>
@@ -33,7 +34,7 @@
 			</table>
 		</div>
 
-		<div class="col-xs-6 my-account">
+		<div class="col-xs-6 col-md-4 my-account">
 			<h3>My Account</h3>
 
 			{{#with myPortfolio}}
@@ -73,7 +74,11 @@
 					<td class='right-cell'>{{  totalAccountValue }}</td>
 				</tr>
 			{{/with}}
-
 		</div>
+		
+		<div class="col-xs-12 col-md-4 top-players">
+			Top Players
+		</div>
+
 	</div>
 </template>
