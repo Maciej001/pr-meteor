@@ -40,11 +40,5 @@ Template.adminPanel.events({
 });
 
 Template.adminPanel.helpers({
-	currentTime: function(){
-		var time = new Date;
-		var time_only = time.getHours() + ":" + time.getMinutes();
-		var reactiveTime = new ReactiveVar(time);
-		reactiveTime.set(time_only);
-		return reactiveTime;
-	}
+
 });
