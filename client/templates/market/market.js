@@ -26,8 +26,25 @@ Template.market.helpers({
 	},
 
 	openPosition: function(){
-		var s = Statistics.findOne(),
-			  openPosition = s.openPosition
+		user = Meteor.user();
+		var openPosition =  user.openPosition();
+
+		console.log(openPosition);
+		if (openPosition === -1) {
+			return " 1 contract short";
+		} 
+		else if (openPosition < -1) {
+			return Math.abs(openPosition) + " contracts short";
+		}
+		else if (openPosition === 0) {
+			return " square";
+		} 
+		else if (openPosition === 1) {
+			return " 1 contract long";
+		} 
+		else {
+			return openPosition + " contracts long";
+		}
 
 	}
 	// marketOpen: function(){
