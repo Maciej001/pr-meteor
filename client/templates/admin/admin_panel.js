@@ -1,6 +1,5 @@
 Template.adminPanel.onRendered(function(){
 	var statistics = Statistics.findOne();
-	console.log('stats ', statistics );
 	var currentEstimatedValue = statistics.estimatedValue;
 
 	$('#estimatedValue').val(statistics.estimatedValue);
