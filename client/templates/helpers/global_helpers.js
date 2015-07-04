@@ -1,7 +1,4 @@
-Template.registerHelpers({
-	
 
-})
 
 isActualValue = function(){
 	var s = Statistics.findOne();

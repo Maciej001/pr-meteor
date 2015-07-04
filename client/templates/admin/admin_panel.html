@@ -1,5 +1,6 @@
 <template name="adminPanel">
 
+{{#if currentUser.isAdmin}}
 <div class="container-fluid" id="admin-panel">
 	<div class="container">
 		<form class="form-horizontal admin-form">
@@ -38,5 +39,6 @@
 
 	</div>
 </div>
+{{/if}}
 	
 </template>
