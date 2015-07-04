@@ -24,6 +24,12 @@ Template.market.helpers({
 			return "newOrderButton";
 		}
 	},
+
+	openPosition: function(){
+		var s = Statistics.findOne(),
+			  openPosition = s.openPosition
+
+	}
 	// marketOpen: function(){
 	// 	var s = Statistics.findOne();
 	// 	var now = new Date();
