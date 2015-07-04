@@ -1,6 +1,7 @@
 if (Meteor.isServer) {
   Meteor.startup(function () {
     
+    // Add Statistics - it contains ONE element
     if (Statistics.find().count() === 0 ) {
 			Statistics.insert({
 				total_contracts_traded: 	0,
@@ -19,6 +20,14 @@ if (Meteor.isServer) {
 			user = Meteor.users.find(id);
 			Roles.addUsersToRoles(id, 'admin');
 		}	
+
+		// Add Market collection - it contains ONE element
+
+
+			Markets.insert({
+				state: "open"
+			});
+
 
   });
 }

@@ -24,3 +24,6 @@ Meteor.publish('portfolios', function(){
 	return Portfolios.find();
 });
 
+Meteor.publish('markets', function(){
+	return Markets.find({}, { limit: 1 });
+});

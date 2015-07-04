@@ -29,7 +29,6 @@ Template.market.helpers({
 		user = Meteor.user();
 		var openPosition =  user.openPosition();
 
-		console.log(openPosition);
 		if (openPosition === -1) {
 			return " 1 contract short";
 		} 

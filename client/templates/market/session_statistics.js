@@ -53,9 +53,13 @@ Template.sessionStatistics.helpers({
 			avgSellPrice = 			sumOfMultipliedFields(sellTrades, 'size', 'price') / contractsSold;
 		}
 
+
+
 		if (buyTradesCount !== sellTradesCount ) {
 			openPosition  = contractsBought - contractsSold;
 		}
+
+		openPosition = Meteor.user().openPosition();
 
 		if (openPosition > 0 ) {
 			avgOpenPositionPrice = avgBuyPrice;
