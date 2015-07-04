@@ -13,7 +13,7 @@ if (Meteor.isServer) {
 			var id = Accounts.createUser({
 				email: "maciej@gmail.com",
 				password: "korek001"
-			})
+			});
 
 			Roles.createRole('admin');
 
@@ -22,12 +22,10 @@ if (Meteor.isServer) {
 		}	
 
 		// Add Market collection - it contains ONE element
-
-
-			Markets.insert({
-				state: "open",
-				multiplier: 10
-			});
+		Markets.insert({
+			state: "open",
+			multiplier: 10
+		});
 
 
   });

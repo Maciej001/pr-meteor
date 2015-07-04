@@ -44,48 +44,52 @@
 
 		<div class="col-xs-6 col-md-4 my-account">
 			<h3>My Account</h3>
+			<table>
+				{{#with myPortfolio}}
+					<tr>
+						<td>Trades</td>
+						<td class='right-cell'>{{ number_of_trades }}</td>
+					</tr>
+					<tr>
+						<td>Contracts traded</td>
+						<td class='right-cell'>{{ contracts_traded }}</td>
+					</tr>
+				{{/with}}
 
-			{{#with myPortfolio}}
-				<tr>
-					<td>Trades</td>
-					<td class='right-cell'>{{ number_of_trades }}</td>
-				</tr>
-				<tr>
-					<td>Contracts traded</td>
-					<td class='right-cell'>{{ contracts_traded }}</td>
-				</tr>
-			{{/with}}
-
-			{{#with myPortfolioDynamicValues}}
-				<tr>
-					<td>Open position</td>
-					<td class='right-cell'>{{ openPosition }}</td>
-				</tr>
-				<tr>
-					<td>Average open position price</td>
-					<td class='right-cell'>{{ avgOpenPositionPrice }}</td>
-				</tr>
-				<tr>
-					<td> Reval price</td>
-					<td class='right-cell'>{{ revalPrice }}</td>
-				</tr>
-				<tr>
-					<td>Open position value </td>
-					<td class='right-cell'>{{ openPositionValue }}</td>
-				</tr>
-				<tr>
-					<td>Cash</td>
-					<td class='right-cell'>{{ cash }}</td>
-				</tr>
-				<tr>
-					<td>Total account value</td>
-					<td class='right-cell'>{{  totalAccountValue }}</td>
-				</tr>
-			{{/with}}
+				{{#with myPortfolioDynamicValues}}
+					<tr>
+						<td>Open position</td>
+						<td class='right-cell'>{{ openPosition }}</td>
+					</tr>
+					<tr>
+						<td>Average open position price</td>
+						<td class='right-cell'>{{ avgOpenPositionPrice }}</td>
+					</tr>
+					<tr>
+						<td> Reval price</td>
+						<td class='right-cell'>{{ revalPrice }}</td>
+					</tr>
+					<tr>
+						<td>Open position value </td>
+						<td class='right-cell'>{{ openPositionValue }}</td>
+					</tr>
+					<tr>
+						<td>Cash</td>
+						<td class='right-cell'>{{ cash }}</td>
+					</tr>
+					<tr>
+						<td>Total account value</td>
+						<td class='right-cell'>{{  totalAccountValue }}</td>
+					</tr>
+				{{/with}}
+			</table>
 		</div>
 		
 		<div class="col-xs-12 col-md-4 top-players">
-			Top Players
+			<h3>Top players</h3>
+			{{#each topPlayers }}
+				{{> onePlayer}}
+			{{/each}}
 		</div>
 
 	</div>

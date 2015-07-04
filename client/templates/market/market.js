@@ -46,16 +46,8 @@ Template.market.helpers({
 		}
 
 	}
-	// marketOpen: function(){
-	// 	var s = Statistics.findOne();
-	// 	var now = new Date();
-
-	// 	if (now > TimeToTodayDate(s.openHour) && now < TimeToTodayDate(s.closeHour) )
-	// 		return true
-	// 	else 
-	// 		return false
-	// }
 });
+
 
 Template.market.events({
 	'click .new-order': function(e){

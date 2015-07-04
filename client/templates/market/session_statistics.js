@@ -2,6 +2,15 @@ Template.sessionStatistics.helpers({
 	statistics: function(){
 		return Statistics.findOne();
 	}, 
+
+	topPlayers: function(){
+		var market = Markets.findOne();
+		zwrot =  market.topPlayers();
+
+		console.log('top players', zwrot);
+		return zwrot;
+	},
+
 	myPortfolio: function(){
 		return Portfolios.findOne({ userId: Meteor.userId() });
 	},
@@ -84,7 +93,9 @@ Template.sessionStatistics.helpers({
 			cash = initialCash + closedProfit;
 		}
 
-		return {
+
+
+		var newValues =  {
 			openPosition: 					openPosition,
 			avgOpenPositionPrice: 	commaSeparateNumber(   (Math.round(avgOpenPositionPrice * 100 )/100).toFixed(2)),
 			openPositionValue:    	commaSeparateNumber(   (Math.round(openPositionValue * 100)/100).toFixed(2)),
@@ -92,6 +103,20 @@ Template.sessionStatistics.helpers({
 			cash: 									commaSeparateNumber(   (Math.round(cash * 100)/100).toFixed(2)),
 			totalAccountValue:  		commaSeparateNumber(   (Math.round((cash + openPositionValue) * 100)/100).toFixed(2))
 		}
+
+		Portfolios.update({ _id: portfolio._id}, 
+			{ $set: 
+				{
+					openPosition: 						newValues.openPosition,
+					avgOpenPositionPrice: 		newValues.avgOpenPositionPrice,
+					openPositionValue: 				newValues.openPositionValue,
+					revalPrice: 							newValues.revalPrice,
+					cash: 										newValues.cash,
+					totalAccountValue: 				newValues.totalAccountValue
+				}
+		});
+
+		return newValues;
 	}
 });
 
