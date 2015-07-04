@@ -1,15 +1,35 @@
 <template name="priceItem">
-	<li class="price-item">
-		<button type="button" class="btn btn-primary">
-			<h3 class="price">
-				{{#if myPrice}}
+	
+	{{#if isBid}}
+		<li class="price-item bid-price">
+			<h3>
+				<span class="bid-size">
+					{{size_left}}
+				</span>
+			
+				<span class="price">{{price}}</span>
+
+				{{#if isMyBid}}
 					<i class="glyphicon glyphicon-eye-open my-price"></i>
 				{{/if}}
-				
-				{{price}}
-				<span class="size">{{size_left}}</span>
 			</h3>
-			
-		</button>
-	</li>
+		</li>
+	{{/if}}
+
+	{{#if isOffer}}
+		<li class="price-item offer-price">
+			<h3>
+				{{#if isMyOffer}}
+					<i class="glyphicon glyphicon-eye-open my-price"></i>
+				{{/if}}
+
+				<span class="price">{{price}}</span>
+
+				<span class="offer-size">
+					{{size_left}}
+				</span>
+			</h3>
+		</li>
+	{{/if}}
+				
 </template>

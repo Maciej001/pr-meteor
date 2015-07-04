@@ -83,28 +83,34 @@
 
 .bids, .offers {
 	display: inline-block;
-	width: 120px;
 	min-height: 100px;
 
-	button, button.btn.btn-primary {
-		border-radius: 0;
-		border: none;
+	h3 {
 		margin: 0;
-		padding: 0;
-		width: 120px;
-	}
-
-	.price {
-		margin: 10px 0;
-	}
-
-	.size {
-		color: lighten($blue, 20%);
-		font-size: 1.5rem;
 	}
 
 	.price-item {
 		margin-bottom: 2px;
+		padding: 8px 20px;
+		background: $blue;
+		color: white;
+		text-align: center;
+	}
+
+	.price {
+		margin: 0;
+		padding: 0 10px;
+	}
+
+	.bid-size, .offer-size {
+		display: inline-block;
+		color: lighten($blue, 20%);
+		font-size: 1.7rem;
+		margin: 0;
+	}
+
+	.price-item-header {
+		background: $dark-blue;
 	}
 }
 
