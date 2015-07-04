@@ -21,74 +21,66 @@ Template.sessionStatistics.helpers({
 		}
 	},
 	myPortfolioDynamicValues: function(){
-		var multiplier = 						10;
-		var portfolio = 						Portfolios.findOne({userId: Meteor.userId()});
-		var statistics =						Statistics.findOne();
-		var contractsBought = 			0;
-		var contractsSold = 				0;
-		var openPosition = 					0;
-		var avgBuyPrice;
-		var avgSellPrice;
-		var openPositionValue = 	null;
-		var avgMarketPrice = 			null;
-		var initialCash =					portfolio.cash;
-		var closedProfit = 				0;
-		var cash =								initialCash;
+		var user = 									Meteor.user(),
+				market = 								Markets.findOne(),
+				portfolio = 						Portfolios.findOne({userId: Meteor.userId()}),
+				statistics =						Statistics.findOne(),
+				openPosition = 					Meteor.user().openPosition(),
+				bestBid = 							market.bestBid(),
+		 		bestOffer = 						market.bestOffer();
 
-		var bestBid = 						Bids.findOne({}, { sort: { price: -1 } });
-		var bestOffer = 					Offers.findOne({}, { sort: { price: 1 } });
+		var avgBuyPrice,
+				avgSellPrice,
+				openPositionValue = 	null,
+				revalPrice = 					null,
+				initialCash =					portfolio.cash,
+				cash =								initialCash,
+				closedProfit = 				0,
+				buyTrades = 					Trades.find({userId: Meteor.userId(), side: 'buy'}),
+				contractsBought =     user.contractsBought(),
+				sellTrades = 					Trades.find({userId: Meteor.userId(), side: 'sell'}),
+				contractsSold = 			user.contractsSold();
 
-		var buyTrades = 					Trades.find({userId: Meteor.userId(), side: 'buy'});
-		var buyTradesCount = 			buyTrades.count();
-		var sellTrades = 					Trades.find({userId: Meteor.userId(), side: 'sell'});
-		var sellTradesCount = 		sellTrades.count();
-
-		if (buyTradesCount > 0) {
-			contractsBought = 	sumOfFields(buyTrades, 'size');
+		// Calculate average buying price
+		if (contractsBought > 0) {
 			avgBuyPrice = 			sumOfMultipliedFields(buyTrades,  'size', 'price') / contractsBought ;
 		}
 
-		if (sellTradesCount > 0) {
-			contractsSold = 		sumOfFields(sellTrades, 'size');
+		// Calculate average selling price
+		if (contractsSold > 0) {
 			avgSellPrice = 			sumOfMultipliedFields(sellTrades, 'size', 'price') / contractsSold;
 		}
 
-
-
-		if (buyTradesCount !== sellTradesCount ) {
-			openPosition  = contractsBought - contractsSold;
-		}
-
-		openPosition = Meteor.user().openPosition();
-
-		if (openPosition > 0 ) {
+		// Calculate average open position price
+		if (openPosition > 0 ) { 	
 			avgOpenPositionPrice = avgBuyPrice;
-		} else if (openPosition < 0) {
+		} 
+		else if (openPosition < 0) {
 			avgOpenPositionPrice = avgSellPrice;
-		} else {
+		} 
+		else {
 			avgOpenPositionPrice = null;
 		}
 
-		// Find current average market price or use last trade if there were at least single trade
-		// otherwise it's null
+		// Calculate reval price. Mid off the market if exists or last trade.
 		if (!!bestBid && !!bestOffer) {
-			avgMarketPrice = (bestBid.price + bestOffer.price) / 2;
+			revalPrice = (bestBid.price + bestOffer.price) / 2;
 		} else if (Trades.find().count() > 0) {
-			avgMarketPrice = statistics.last;
+			revalPrice = statistics.last;
 		}
 
-		if (openPosition !== 0  && !!avgMarketPrice) {
-			openPositionValue  = multiplier * openPosition * (avgMarketPrice - avgOpenPositionPrice);
+		// Calculate Open position valuation
+		if (openPosition !== 0  && !!revalPrice) {
+			openPositionValue  = market.multiplier * openPosition * (revalPrice - avgOpenPositionPrice);
 		}
 
 		// Calculate current cash position if there are any closed trades
-		if (buyTradesCount > 0 && sellTradesCount > 0) {
+		if (contractsBought > 0 && contractsSold > 0) {
 			if (contractsBought >= contractsSold) {
-				closedProfit = multiplier * contractsSold * (avgSellPrice - avgBuyPrice);
+				closedProfit = market.multiplier * contractsSold * (avgSellPrice - avgBuyPrice);
 			} else {
-				closedProfit = multiplier * contractsBought * (avgSellPrice - avgBuyPrice);
+				closedProfit = market.multiplier * contractsBought * (avgSellPrice - avgBuyPrice);
 			}
-
 			cash = initialCash + closedProfit;
 		}
 
@@ -96,7 +88,7 @@ Template.sessionStatistics.helpers({
 			openPosition: 					openPosition,
 			avgOpenPositionPrice: 	commaSeparateNumber(   (Math.round(avgOpenPositionPrice * 100 )/100).toFixed(2)),
 			openPositionValue:    	commaSeparateNumber(   (Math.round(openPositionValue * 100)/100).toFixed(2)),
-			revalPrice: 						commaSeparateNumber(   (Math.round(avgMarketPrice * 100)/100).toFixed(2)),
+			revalPrice: 						commaSeparateNumber(   (Math.round(revalPrice * 100)/100).toFixed(2)),
 			cash: 									commaSeparateNumber(   (Math.round(cash * 100)/100).toFixed(2)),
 			totalAccountValue:  		commaSeparateNumber(   (Math.round((cash + openPositionValue) * 100)/100).toFixed(2))
 		}

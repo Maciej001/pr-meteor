@@ -25,7 +25,8 @@ if (Meteor.isServer) {
 
 
 			Markets.insert({
-				state: "open"
+				state: "open",
+				multiplier: 10
 			});
 
 
