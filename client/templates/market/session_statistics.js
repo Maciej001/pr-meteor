@@ -73,14 +73,14 @@ Template.sessionStatistics.helpers({
 		}
 
 		return  {
-							number_of_trades: 			portfolio.number_of_trades,
-							contracts_traded: 			portfolio.contracts_traded,
-							openPosition: 					openPosition,
-							avgOpenPositionPrice: 	avgOpenPositionPrice,
-							openPositionValue:    	openPositionValue,
-							revalPrice: 						revalPrice, 
-							cash: 									cash,
-							totalAccountValue:  		cash + openPositionValue
+							number_of_trades: 			commaSeparateNumber(portfolio.number_of_trades),
+							contracts_traded: 			commaSeparateNumber(portfolio.contracts_traded),
+							openPosition: 					commaSeparateNumber(openPosition),
+							avgOpenPositionPrice: 	commaSeparateNumber(avgOpenPositionPrice.toFixed(2)),
+							openPositionValue:    	commaSeparateNumber(openPositionValue.toFixed(2)),
+							revalPrice: 						commaSeparateNumber(revalPrice.toFixed(2)), 
+							cash: 									commaSeparateNumber(cash.toFixed(2)),
+							totalAccountValue:  		commaSeparateNumber((cash + openPositionValue).toFixed(2))
 						}
 	},
 
