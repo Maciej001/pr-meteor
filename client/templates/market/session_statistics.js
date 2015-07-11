@@ -1,3 +1,24 @@
+Template.sessionStatistics.onCreated(function(){
+
+	// Create reactive variable for number of contracts user traded.
+	if (!!Meteor.user()) {
+		var myTrades = Trades.find({ userId: Meteor.userId() });
+		if (!!myTrades) {
+			var contracts_traded = _.reduce(
+																_.map(myTrades, function(trade){
+																	return trade.size;
+																}),
+																function(m, n) { return m + n; });
+		} else {
+			var contracts_traded = 0;
+		}
+
+		debugger;
+	}
+
+	this.contractsTraded = ReactiveVar(contracts_traded);
+});
+
 Template.sessionStatistics.helpers({
 	statistics: function(){
 		return Statistics.findOne();
@@ -14,7 +35,7 @@ Template.sessionStatistics.helpers({
 		return {
 			number_of_trades: 			data.number_of_trades,
 			contracts_traded: 			data.contracts_traded,
-			openPosition: 					formatForDisplay(data.openPosition),
+			openPosition: 					commaSeparateNumber(data.openPosition),
 			avgOpenPositionPrice: 	formatForDisplay(data.avgOpenPositionPrice),
 			openPositionValue:    	formatForDisplay(data.openPositionValue),
 			revalPrice: 						formatForDisplay(data.revalPrice), 
@@ -36,10 +57,7 @@ Template.sessionStatistics.helpers({
 		} else {
 			return "not available yet"
 		}
-	},
-	myPortfolioDynamicValues: function(){
-		return Portfolios.findOne({userId: Meteor.userId()});
-	},
+	}
 	
 });
 
@@ -63,19 +81,24 @@ sumOfFields = function(collection, field) {
 									_.map(collection.fetch(), function(doc) { return doc[field]}),
 									function(memo, num) {return memo + num}
 								);	
-}
-
-// sumOfMultipliedFields = function(collection, field1, field2) {
-// 	return _.reduce(
-// 									_.map(collection.fetch(), function(doc) { return doc[field1] * doc[field2]}),
-// 									function(memo, num) {return memo + num}
-// 								);	
-// }
+};  
 
 avgCollectionPrice = function(collection, contractsNumber) {
-
-	return  _.reduce(
-						_.map(collection, function(item) { return item.price * item.size; }),
-						function(m, n) { return m + n; }
-					) / contractsNumber ;
+	var tradesArray = _.map(collection, function(item) { return item.price * item.size; });
+	return  _.reduce( tradesArray, function(m, n) { return m + n; } ) / contractsNumber;
 }
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+

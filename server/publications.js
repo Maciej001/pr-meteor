@@ -1,3 +1,7 @@
+Meteor.publish('allUsers', function(){
+	return Meteor.users.find({});
+});
+
 Meteor.publish('prices', function(){
 	return Prices.find({ state: 'active' });
 });
@@ -11,7 +15,7 @@ Meteor.publish('offers', function(){
 });
 
 Meteor.publish('trades', function(){
-	return Trades.find();
+	return Trades.find({});
 });
 
 Meteor.publish('statistics', function(){
@@ -20,7 +24,7 @@ Meteor.publish('statistics', function(){
 
 Meteor.publish('portfolios', function(){
 	// check(this.userId, String);
-	return Portfolios.find();
+	return Portfolios.find({});
 });
 
 Meteor.publish('markets', function(){
