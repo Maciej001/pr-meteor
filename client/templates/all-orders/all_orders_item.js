@@ -18,3 +18,20 @@ Template.allOrdersItem.helpers({
 		return false;
 	}
 });
+
+Template.allOrdersItem.events({
+	'click .delete-order': function(e) {
+		e.preventDefault();
+
+		order = Prices.findOne(this._id);
+
+		// Check if user logged in and it's his order
+		if (Meteor.user() && (Meteor.userId() === order.userId)){
+
+			if (order.side === 'buy') { order.removeBid() }
+			else { order.removeOffer() };
+
+			Prices.remove(this._id);
+		}
+	}
+})

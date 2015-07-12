@@ -14,37 +14,13 @@ Template.myOrderItem.events({
 		var currentOrderId = this._id;
 		order = Prices.findOne(currentOrderId);
 
-		if (order.side === 'buy') { removeBid(order) }
-		else { removeOffer(order) };
+		// Check if user logged in and it's his order
+		if (Meteor.user() && (Meteor.userId() === order.userId)) {
 
-		Prices.remove(currentOrderId);
+			if (order.side === 'buy') { order.removeBid() }
+			else { order.removeOffer() };
 
-
-	},
+			Prices.remove(currentOrderId);
+		}
+	}
 });
-
-removeBid = function(order){
-	var bid = Bids.findOne({price: order.price})
-
-	// if bid is build from single price
-	if (bid.prices.length === 1) {
-		Bids.remove(bid._id);
-	}
-	else {
-		// decrease size left on the bid, and pull references to prices
-		Bids.update(bid._id, { $inc: { size_left: -order.size_left }, $pull: { prices: order._id } });
-	}
-};
-
-removeOffer = function(order){
-	var offer = Offers.findOne({price: order.price})
-
-	// if offer is build from single price
-	if (offer.prices.length === 1) {
-		Offers.remove(offer._id);
-	}
-	else {
-		// decrease size left on the offer, and pull references to prices
-		Offers.update(offer._id, { $inc: { size_left: -order.size_left }, $pull: { prices: order._id } });
-	}
-};
