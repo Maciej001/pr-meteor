@@ -1,28 +1,23 @@
 // Home Page chart
 Template.homePage.onRendered(function() {
-		var data = {
-			labels: ['', '', '', '','' ,'',''],
-			series: [
-				[250, 400, 300, 450, 350, 500,950]
-			]
-		};
 
-		var options = {
-			showPoint: 		true,
-			fullWidth: 		true,
-			lineSmooth: 	true,
-			low: 					100,
-			axisY: {
-				showGrid: 	true,
-				low: 				100,
-				high: 			1000,
-				divisor: 		5,
+		// Home Page chart
+		var args = {
+							elementById:	'#home-chart',
+							width: 				600,
+							height: 			400,
+							margin: 	   	{ top: 		20,
+															right: 	20,
+															bottom: 20,
+															left: 	20
+														},
+							interpolation: 	'basis',
 
-			},
-			chartPadding: {
-				right: 20
-			}
-		};
 
-		new Chartist.Line('#home-chart', data, options);
+					}
+
+		var home_data = [200, 450, 150, 550, 250, 550, 1050];
+
+		chartLineBlinkingDots(home_data, args);
 });
+

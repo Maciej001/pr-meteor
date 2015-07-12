@@ -4,14 +4,8 @@ Template.sessionStatistics.helpers({
 		return Statistics.findOne();
 	}, 
 
-	topPlayers: function(){
-		return Players.find({}, { limit: 5, sort: { totalAccountValue: 1 } });
-	},
-
 	myPortfolio: function(){
 		var portfolio = Meteor.user().getPortfolioValuation();
-		
-		debugger;
 
 		return {
 			numberOfTrades: 				portfolio.numberOfTrades,
