@@ -38,7 +38,20 @@ body, html, #main-wrapper {
 	border: none;
 	&:hover {
 		color: white;
-		background: $yellow;
-		opacity: 0.85;
+		background: darken($yellow, 10%);
+	}
+}
+
+.btn-orange {
+	background: $orange;
+	color: white;
+	border: none;
+	&:hover {
+		color: white;
+		background: darken($orange, 10%);
+	}
+	&:visited, &:active, &:focus {
+		background: $orange;
+		color: white;
 	}
 }

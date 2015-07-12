@@ -1,0 +1,31 @@
+<template name="allTrades">
+	<div class="container all-trades">
+		<div class="row">
+
+			<div class="col-xs-12">
+			
+				<div>
+					<h4 class="table-header">All Trades</h4>
+				</div>
+
+				<table class='table table-striped'>
+					<thead>
+						<tr>
+							<th>Buy/Sell</th>
+							<th>Price</th>
+							<th>Size</th>
+							<th>Date and time</th>
+						</tr>
+					</thead>
+					<tbody>
+						{{#each myAllTrades}}
+							{{> allTradesItem }}
+						{{/each}}
+					</tbody>
+				</table>
+
+			</div>
+
+		</div>
+	</div>
+</template>

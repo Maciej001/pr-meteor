@@ -6,6 +6,14 @@ Meteor.publish('prices', function(){
 	return Prices.find({ state: 'active' });
 });
 
+Meteor.publish('active-prices', function(){
+	return Prices.find({ state: 'active' });
+});
+
+Meteor.publish('all-prices', function(){
+	return Prices.find({});
+});
+
 Meteor.publish('bids', function(){
 	return Bids.find({ state: 'active' });
 });

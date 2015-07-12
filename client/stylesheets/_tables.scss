@@ -1,0 +1,18 @@
+.all-trades, .all-orders {
+	
+	margin-top: 20px;
+
+	.table-header {
+		color: 	$gray;
+		font-weight: bold;
+	}
+
+	table > thead > tr > th {
+		color: $blue;
+	}
+
+td.order-active {
+		color: $green;
+		font-weight: bold;
+	}
+}
