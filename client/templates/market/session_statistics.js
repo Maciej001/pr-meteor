@@ -1,25 +1,5 @@
-Template.sessionStatistics.onCreated(function(){
-
-	// Create reactive variable for number of contracts user traded.
-	if (!!Meteor.user()) {
-		var myTrades = Trades.find({ userId: Meteor.userId() });
-		if (!!myTrades) {
-			var contracts_traded = _.reduce(
-																_.map(myTrades, function(trade){
-																	return trade.size;
-																}),
-																function(m, n) { return m + n; });
-		} else {
-			var contracts_traded = 0;
-		}
-
-		debugger;
-	}
-
-	this.contractsTraded = ReactiveVar(contracts_traded);
-});
-
 Template.sessionStatistics.helpers({
+
 	statistics: function(){
 		return Statistics.findOne();
 	}, 
@@ -29,18 +9,19 @@ Template.sessionStatistics.helpers({
 	},
 
 	myPortfolio: function(){
-
-		var data =  Meteor.user().portfolioValuation();
+		var portfolio = Meteor.user().getPortfolioValuation();
+		
+		debugger;
 
 		return {
-			number_of_trades: 			data.number_of_trades,
-			contracts_traded: 			data.contracts_traded,
-			openPosition: 					commaSeparateNumber(data.openPosition),
-			avgOpenPositionPrice: 	formatForDisplay(data.avgOpenPositionPrice),
-			openPositionValue:    	formatForDisplay(data.openPositionValue),
-			revalPrice: 						formatForDisplay(data.revalPrice), 
-			cash: 									formatForDisplay(data.cash),
-			totalAccountValue:  		formatForDisplay(data.totalAccountValue)		
+			numberOfTrades: 				portfolio.numberOfTrades,
+			contractsTraded: 				portfolio.contractsTraded,
+			openPosition: 					commaSeparateNumber(portfolio.openPosition),
+			avgOpenPositionPrice: 	formatForDisplay(portfolio.avgOpenPositionPrice),
+			openPositionValue:    	formatForDisplay(portfolio.openPositionValue),
+			revalPrice: 						formatForDisplay(portfolio.revalPrice), 
+			cash: 									formatForDisplay(portfolio.cash),
+			totalAccountValue:  		formatForDisplay(portfolio.totalAccountValue)		
 		}
 	},
 
