@@ -1,5 +1,27 @@
-#home-chart path{
-	fill: none;
-	stroke: $blue;
-	stroke-width: 10px;
+#home-chart {
+	path{
+		fill: none;
+		stroke: $blue;
+		stroke-width: 10px;
+	}
+	circle {
+		fill: $blue;
+		animation-duration: 2s;
+		animation-name: circle-explode;
+		animation-iteration-count: infinite;
+		animation-timing-function: ease-out;
+	}
+}
+
+@keyframes circle-explode {
+	from {
+		r: 5px;
+		opacity: 1;
+	}
+
+	to {
+		r: 20px;
+		opacity: 0;
+	}
+
 }

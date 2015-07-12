@@ -1,6 +1,4 @@
 
-
-
 chartLineBlinkingDots = function(data, args) {
 
 	var width = args.width - args.margin.left - args.margin.right,
@@ -20,7 +18,7 @@ chartLineBlinkingDots = function(data, args) {
 
 	var valueLine = d3.svg.line()
 										.interpolate(args.interpolation)
-										.x(function(d, i) { return (x(i) + 10); })
+										.x(function(d, i) { return (x(i) + 20); })
 										.y(function(d) { return y(d); })
 
 	var svg = d3.select(args.elementById)
@@ -35,8 +33,14 @@ chartLineBlinkingDots = function(data, args) {
 		.attr("d", valueLine(data));
 
 	// Add circles 
-
-
+	svg.append('g')
+    .selectAll('cicle')
+        .data(data)
+        .enter()
+    .append('circle')
+        .attr('r', 5)
+        .attr('cx', function(d, i) { return (x(i) + 20); })
+        .attr('cy', function(d){ return y(d); })
 }
 
 

@@ -11,12 +11,10 @@ Template.homePage.onRendered(function() {
 															bottom: 20,
 															left: 	20
 														},
-							interpolation: 	'basis',
-
-
+							interpolation: 	'cardinal',
 					}
 
-		var home_data = [200, 450, 150, 550, 250, 550, 1050];
+		var home_data = [100, 400, 200, 500, 300, 600, 1050];
 
 		chartLineBlinkingDots(home_data, args);
 });
