@@ -24,14 +24,15 @@ Template.sessionStatistics.helpers({
 			openPosition: 					commaSeparateNumber(portfolio.openPosition) || 'NA',
 			avgOpenPositionPrice: 	formatForDisplay(portfolio.avgOpenPositionPrice) || 'NA',
 			openPositionValue:    	formatForDisplay(portfolio.openPositionValue) || 'NA',
+			cash: 									formatForDisplay(portfolio.cash),
+			totalAccountValue:  		formatForDisplay(portfolio.totalAccountValue)	|| 'NA',	
 			revalPrice: 						function() {
 																if (portfolio.revalPrice && portfolio.revalPrice !== 0)
-																	return formatForDisplay(portfolio.revalPrice) 
+																	return formatForDisplay(portfolio.revalPrice);
 																else 
-																	return 'NA'
+																	return 'NA';
 															},
-			cash: 									formatForDisplay(portfolio.cash),
-			totalAccountValue:  		formatForDisplay(portfolio.totalAccountValue)	|| 'NA'	
+			
 		}
 	}
 	
