@@ -1,38 +1,11 @@
 Template.priceItem.helpers({
-	isMyBid: function(){
+	isMyPrice: function(){
 		var currentUserId = Meteor.userId();
-		var pricesIds = this.prices;
 
-		if (this.side === 'buy') {
-			// Check all Prices connected to given Bid or Offer.
-			// Find the price and check if it's userId is same as current user Id
-			_.each(pricesIds, function(priceId){
-				var price = Prices.findOne(priceId);
-				if (price.userId === currentUserId) { 
-					return true; 
-				}
-			});
-		}
-
-		return false;
-	},
-
-	isMyOffer: function(){
-		var currentUserId = Meteor.userId();
-		var pricesIds = this.prices;
-
-		if (this.side === 'sell') {
-			// Check all Prices connected to given Bid or Offer.
-			// Find the price and check if it's userId is same as current user Id
-			_.each(pricesIds, function(priceId){
-				var price = Prices.findOne(priceId);
-				if (price.userId === currentUserId) { 
-					return true; 
-				}
-			});
-		}
-
-		return false;
+			// Check if array of userId built from prices id contains currentUserId
+			return _.contains(
+								_.map(this.prices, function(id){ return Prices.findOne(id).userId }),
+								currentUserId);
 	},
 
 	isBid: function(){
