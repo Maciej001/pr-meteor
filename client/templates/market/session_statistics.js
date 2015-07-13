@@ -1,36 +1,37 @@
 Template.sessionStatistics.helpers({
 
 	statistics: function(){
-		return Statistics.findOne();
+		var statistics = Statistics.findOne();
+
+		return {
+		 	estimatedValue: 					statistics.estimatedValue || 'NA',
+			actualValue: 							statistics.actualValue || 'NA',
+			number_of_trades: 				statistics.number_of_trades || 0,
+			total_contracts_traded: 	statistics.total_contracts_traded || 0,
+			open: 										statistics.open || 'NA',
+			high: 										statistics.high|| 'NA',
+			low: 											statistics.low || 'NA',
+			last: 										statistics.last || 'NA',	
+		}
 	}, 
 
 	myPortfolio: function(){
 		var portfolio = Meteor.user().getPortfolioValuation();
 
 		return {
-			numberOfTrades: 				portfolio.numberOfTrades,
-			contractsTraded: 				portfolio.contractsTraded,
-			openPosition: 					commaSeparateNumber(portfolio.openPosition),
-			avgOpenPositionPrice: 	formatForDisplay(portfolio.avgOpenPositionPrice),
-			openPositionValue:    	formatForDisplay(portfolio.openPositionValue),
-			revalPrice: 						formatForDisplay(portfolio.revalPrice), 
+			numberOfTrades: 				portfolio.numberOfTrades || 0,
+			contractsTraded: 				portfolio.contractsTraded || 0,
+			openPosition: 					commaSeparateNumber(portfolio.openPosition) || 'NA',
+			avgOpenPositionPrice: 	formatForDisplay(portfolio.avgOpenPositionPrice) || 'NA',
+			openPositionValue:    	formatForDisplay(portfolio.openPositionValue) || 'NA',
+			revalPrice: 						function() {
+																if (portfolio.revalPrice && portfolio.revalPrice !== 0)
+																	return formatForDisplay(portfolio.revalPrice) 
+																else 
+																	return 'NA'
+															},
 			cash: 									formatForDisplay(portfolio.cash),
-			totalAccountValue:  		formatForDisplay(portfolio.totalAccountValue)		
-		}
-	},
-
-	estimatedValue: function(){
-		if (_.isNumber(this.estimatedValue)) {
-			return this.estimatedValue
-		} else {
-			return ""
-		}
-	},
-	actualValue: function(){
-		if (_.isNumber(this.actualValue)) {
-			return this.actualValue;
-		} else {
-			return "not available yet"
+			totalAccountValue:  		formatForDisplay(portfolio.totalAccountValue)	|| 'NA'	
 		}
 	}
 	
