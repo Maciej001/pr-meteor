@@ -26,22 +26,24 @@ Template.market.helpers({
 	},
 
 	openPosition: function(){
-		var openPosition = Meteor.user().openPosition();
+		if (Meteor.user()){
+			var openPosition = Meteor.user().openPosition();
 
-		if (openPosition === -1) {
-			return " 1 contract short";
-		} 
-		else if (openPosition < -1) {
-			return Math.abs(openPosition) + " contracts short";
-		}
-		else if (openPosition === 0) {
-			return " square";
-		} 
-		else if (openPosition === 1) {
-			return " 1 contract long";
-		} 
-		else {
-			return openPosition + " contracts long";
+			if (openPosition === -1) {
+				return " 1 contract short";
+			} 
+			else if (openPosition < -1) {
+				return Math.abs(openPosition) + " contracts short";
+			}
+			else if (openPosition === 0) {
+				return " square";
+			} 
+			else if (openPosition === 1) {
+				return " 1 contract long";
+			} 
+			else {
+				return openPosition + " contracts long";
+			}
 		}
 
 	}

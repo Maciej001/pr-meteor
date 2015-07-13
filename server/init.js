@@ -9,16 +9,13 @@ if (Meteor.isServer) {
 			});
 		}
 
-		if (Meteor.users.find().fetch().length === 0 ) {
+		if (Meteor.users.find().count() === 0 ) {
 			var id = Accounts.createUser({
 				email: "maciej@gmail.com",
 				password: "korek001"
 			});
 
-			Roles.createRole('admin');
-
-			user = Meteor.users.find(id);
-			Roles.addUsersToRoles(id, 'admin');
+			Roles.addUsersToRoles(id, ['admin']);
 		}	
 
 		// Add Market collection - it contains ONE element

@@ -16,23 +16,27 @@ Template.sessionStatistics.helpers({
 	}, 
 
 	myPortfolio: function(){
-		var portfolio = Meteor.user().getPortfolioValuation();
+		if (Meteor.user()) {
+			var portfolio = Meteor.user().getPortfolioValuation();
 
-		return {
-			numberOfTrades: 				portfolio.numberOfTrades || 0,
-			contractsTraded: 				portfolio.contractsTraded || 0,
-			openPosition: 					commaSeparateNumber(portfolio.openPosition) || 'NA',
-			avgOpenPositionPrice: 	formatForDisplay(portfolio.avgOpenPositionPrice) || 'NA',
-			openPositionValue:    	formatForDisplay(portfolio.openPositionValue) || 'NA',
-			cash: 									formatForDisplay(portfolio.cash),
-			totalAccountValue:  		formatForDisplay(portfolio.totalAccountValue)	|| 'NA',	
-			revalPrice: 						function() {
-																if (portfolio.revalPrice && portfolio.revalPrice !== 0)
-																	return formatForDisplay(portfolio.revalPrice);
-																else 
-																	return 'NA';
-															},
-			
+			return {
+				numberOfTrades: 				portfolio.numberOfTrades || 0,
+				contractsTraded: 				portfolio.contractsTraded || 0,
+				openPosition: 					commaSeparateNumber(portfolio.openPosition) || 'NA',
+				avgOpenPositionPrice: 	formatForDisplay(portfolio.avgOpenPositionPrice) || 'NA',
+				openPositionValue:    	formatForDisplay(portfolio.openPositionValue) || 'NA',
+				cash: 									formatForDisplay(portfolio.cash),
+				totalAccountValue:  		formatForDisplay(portfolio.totalAccountValue)	|| 'NA',	
+				revalPrice: 						function() {
+																	if (portfolio.revalPrice && portfolio.revalPrice !== 0)
+																		return formatForDisplay(portfolio.revalPrice);
+																	else 
+																		return 'NA';
+																},
+				
+			}
+		} else {
+			return  false;
 		}
 	}
 	
