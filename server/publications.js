@@ -3,7 +3,7 @@ Meteor.publish('allUsers', function(){
 });
 
 Meteor.publish('prices', function(){
-	return Prices.find({ state: 'active' });
+	return Prices.find();
 });
 
 Meteor.publish('active-prices', function(){

@@ -1,6 +1,6 @@
 Template.myOrders.helpers({
 	myOrders: function(){
-		return Prices.find({userId: Meteor.userId()}, { sort: {created_at: -1}, limit: 6 });
+		return Prices.find({ userId: Meteor.userId(), state: 'active' }, { sort: {created_at: -1}, limit: 6 });
 	},
 	anyActiveOrders: function(){
 		return !!Prices.findOne({ userId: Meteor.userId(), state: 'active' });
