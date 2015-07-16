@@ -30,7 +30,7 @@ Template.newOrderForm.events({
 
 		// check for errors on Client side
 		var errors = validateOrder(order);
-		if (errors.price || errors.size || errors.myself)
+		if (errors.price || errors.size || errors.myself || errors.orderToBig)
 			return Session.set('orderSubmitErrors', errors);
 
 		Meteor.call('insertNewOrder', order, function(error, result) {

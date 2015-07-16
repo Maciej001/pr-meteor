@@ -19,11 +19,13 @@ if (Meteor.isServer) {
 		}	
 
 		// Add Market collection - it contains ONE element
-		Markets.insert({
-			state: "open",
-			multiplier: 10
-		});
-
+		if (Markets.find().count() === 0) {
+			Markets.insert({
+				state: "open",
+				multiplier: 10,
+				maxPosition: 250
+			});
+		}
 
   });
 }
