@@ -1,29 +1,29 @@
 Template.adminPanel.onRendered(function(){
-	var statistics = Statistics.findOne();
-	var currentEstimatedValue = statistics.estimatedValue;
+	var market = Markets.findOne();
+	var currentEstimatedValue = Markets.estimatedValue;
 
-	$('#estimatedValue').val(statistics.estimatedValue);
+	$('#estimatedValue').val(market.estimatedValue);
 
-	if ( _.isNull(statistics.openHour) || _.isUndefined(statistics.openHour)) {
+	if ( _.isNull(market.openHour) || _.isUndefined(market.openHour)) {
 		$('#openHour').val("9:00");
 	} else {
-		$('#openHour').val(statistics.openHour);
+		$('#openHour').val(market.openHour);
 	}
 
-	if ( _.isNull(statistics.closeHour) || _.isUndefined(statistics.closeHour))  {
+	if ( _.isNull(market.closeHour) || _.isUndefined(market.closeHour))  {
 		$('#closeHour').val("13:30");
 	} else {
-		$('#closeHour').val(statistics.closeHour);
+		$('#closeHour').val(market.closeHour);
 	}
 });
 
 Template.adminPanel.events({
 	'submit form': function(e){
-		var statistics = Statistics.findOne();
+		var market = Markets.findOne({});
 
 		e.preventDefault();
 
-		Statistics.update({ _id: statistics._id }, { $set: {
+		Markets.update({ _id: market._id }, { $set: {
 			estimatedValue: 	Number($('#estimatedValue').val()),
 			actualValue: 			function(){
 													if ($('#actualValue').val() === '' || $('#actualValue').val() === 0 ) {

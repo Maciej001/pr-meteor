@@ -2,7 +2,7 @@
 	path{
 		fill: none;
 		stroke: $blue;
-		stroke-width: 10px;
+		stroke-width: 10;
 	}
 	circle {
 		fill: $blue;
@@ -10,6 +10,17 @@
 		animation-name: circle-explode;
 		animation-iteration-count: infinite;
 		animation-timing-function: ease-out;
+	}
+}
+
+#chart {
+	path{
+		fill: none;
+		stroke: $blue;
+		stroke-width: 2;
+	}
+	circle {
+		fill: $blue;
 	}
 }
 

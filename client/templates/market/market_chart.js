@@ -1,6 +1,7 @@
 Template.marketChart.onRendered(function(){
   
     var trades = Trades.find({ side: 'buy' }).fetch();
+    var market = Markets.findOne({});
 
     var cPink = '#c61c6f',
         cOrange ='#ffb832',
@@ -43,11 +44,23 @@ Template.marketChart.onRendered(function(){
             var last_date  = start_end_date[1];
             
             return {
-                maturity:   (d.maturity - start_date)/(last_date-start_date),
+                time:       (d.timeStamp - start_date)/(last_date - start_date),
                 price:      d.price,
                 size:       d.size
             }
-        }) 
+        });
+
+        debugger;
+
+
+        // Add market estimated value as first point in chart if exists
+        if (!!market.estimatedValue){
+            myData.unshift({
+                time:       0,
+                price:      market.estimatedValue,
+                size:       0
+            });
+        }
     
         var min_y = d3.min(data, function(d){ return d.price; }),
             max_y = d3.max(data, function(d){ return d.price; });
@@ -60,8 +73,8 @@ Template.marketChart.onRendered(function(){
         var width   = options.width - options.margin.left - options.margin.right,
             height  = options.height - options.margin.top - options.margin.bottom;
             
-        var x = d3.time.scale()
-                    .domain(d3.extent(data, function(d){ return d.timeStamp; }))
+        var x = d3.scale.linear()
+                    .domain(d3.extent(myData, function(d){ return d.time; }))
                     .range([0, width]);
                     
         var y = d3.scale.linear()
@@ -77,8 +90,8 @@ Template.marketChart.onRendered(function(){
                         .ticks(options.yAxisTicks);
                         
         var valueline = d3.svg.line()
-                            .interpolate(options.interpolation)
-                            .x(function(d){ return x(d.timeStamp); })
+                            // .interpolate(options.interpolation)
+                            .x(function(d){ return x(d.time); })
                             .y(function(d){ return y(d.price); });
                             
         var svg = d3.select(options.element)
@@ -102,13 +115,13 @@ Template.marketChart.onRendered(function(){
             .call(yAxis)
         
         svg.append('g')
-            .selectAll('cicle')
+            .selectAll('circle')
                 .data(myData)
                 .enter()
             .append('circle')
                 .style('fill', function(d) { return myColors(d.price) })
                 .attr('r', 5)
-                .attr('cx', function(d) { return x(d.timeStamp); })
+                .attr('cx', function(d) { return x(d.time); })
                 .attr('cy', function(d){ return y(d.price); })
                 
         // Chart Title
@@ -121,20 +134,20 @@ Template.marketChart.onRendered(function(){
         
         // Gridlines - add two additional axes with stroke-width:0, but ticks spreading width and 
         // height of the chart.
-        svg.append('g')
-          .attr('class', 'grid')
-          .attr('transform', 'translate(0, ' + options.height + ')')
-          .call(make_x_axis(x)
-                  .tickSize(-options.height)
-                  .tickFormat('')
-            )
+        // svg.append('g')
+        //   .attr('class', 'grid')
+        //   .attr('transform', 'translate(0, ' + options.height + ')')
+        //   .call(make_x_axis(x)
+        //           .tickSize(-options.height)
+        //           .tickFormat('')
+        //     )
         
-        svg.append('g')
-          .attr('class', 'grid')
-          .call(make_y_axis(y)
-                  .tickSize( - width, 0, 0)
-                  .tickFormat('')
-           )
+        // svg.append('g')
+        //   .attr('class', 'grid')
+        //   .call(make_y_axis(y)
+        //           .tickSize( - width, 0, 0)
+        //           .tickFormat('')
+        //    )
         
     }; // end of function
   
