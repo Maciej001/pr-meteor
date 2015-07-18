@@ -16,7 +16,7 @@ Template.marketChart.onRendered(function(){
         height:         400,
         interpolation: 'linear',
         colorScale:     [cOrange, cPink],
-        chartTitle:     'Payrolls',
+        chartTitle:     'PAYROLLS',
         xAxisTicks:     5,
         yAxisTicks:     10
     };
@@ -41,7 +41,12 @@ Template.marketChart.onRendered(function(){
 
         var min_y = d3.min(data, function(d){ return d.price; }),
             max_y = d3.max(data, function(d){ return d.price; });
-            
+
+        var area = d3.svg.area()
+                        .x(function(d) { return x(d.price); })
+                        .y0(height)
+                        .y1(function(d) { return y(d.price); })
+                            
         var x = d3.time.scale()
                     .domain(d3.extent(data, function(d){ return d.time; }))
                     .range([0, width]);
@@ -66,7 +71,7 @@ Template.marketChart.onRendered(function(){
         var svg = d3.select(options.element)
                     .append('svg')
                         .attr('width',  options.width  + margin.left + margin.right)
-                        .attr('height', options.height + margin.top  + margin.bottom)
+                        .attr('height', options.height)
                     .append('g')
                         .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')')
                     
@@ -93,10 +98,10 @@ Template.marketChart.onRendered(function(){
                 
         // Chart Title
         svg.append('text')
-          .attr('x', (width/2))
+          .attr('x', 0)
           .attr('class', 'chart-title')
           .attr('y', ( 0 - margin.top/2 ))
-          .attr('text-anchor', 'middle')
+          .attr('text-anchor', 'left')
           .text(options.chartTitle)
         
         // Gridlines - add two additional axes with stroke-width:0, but ticks spreading width and 
@@ -120,7 +125,7 @@ Template.marketChart.onRendered(function(){
   
     var make_x_axis = function(x){
       return d3.svg.axis()
-                .scale(x_time)
+                .scale(x)
                 .orient('bottom')
                 .ticks(options.xAxisTicks)
     };

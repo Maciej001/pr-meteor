@@ -16,8 +16,9 @@
 #chart {
 	path{
 		fill: none;
-		stroke: $blue;
-		stroke-width: 2;
+		stroke: white;
+		stroke-width: 4;
+
 	}
 	circle {
 		fill: $blue;
@@ -35,4 +36,43 @@
 		opacity: 0;
 	}
 
+}
+#chart circle {
+	fill: $blue;
+	stroke-width: 4;
+	stroke: white;
+	margin: 4px;
+}
+
+.axis  {
+	text {
+		fill: lighten($very-light-blue, 20%);
+	}
+}
+
+#chart .y.axis path  {
+	stroke: none;
+}
+
+svg {
+	background: $blue;
+	margin: 20px 0;
+}
+
+#chart .x.axis path {
+	stroke-width: 1;
+	stroke-color: lighten($very-light-blue, 20%);
+	fill: none;
+}
+
+.chart-title {
+	font-size: 2rem;
+	font-weight: bold;
+
+	fill: white;
+}
+
+.area {
+	fill: lighten($blue, 10%);
+	stroke-width: 0;
 }
