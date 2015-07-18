@@ -19,7 +19,6 @@ Template.marketChart.onRendered(function(){
                     }
                 );
 
-
     // Set options
     options = {
         element:        '#chart',
@@ -50,8 +49,6 @@ Template.marketChart.onRendered(function(){
             }
         });
 
-        debugger;
-
 
         // Add market estimated value as first point in chart if exists
         if (!!market.estimatedValue){
@@ -74,7 +71,7 @@ Template.marketChart.onRendered(function(){
             height  = options.height - options.margin.top - options.margin.bottom;
             
         var x = d3.scale.linear()
-                    .domain(d3.extent(myData, function(d){ return d.time; }))
+                    .domain(d3.extent(myData, function(d, i){ return i; }))
                     .range([0, width]);
                     
         var y = d3.scale.linear()
@@ -91,7 +88,7 @@ Template.marketChart.onRendered(function(){
                         
         var valueline = d3.svg.line()
                             // .interpolate(options.interpolation)
-                            .x(function(d){ return x(d.time); })
+                            .x(function(d, i){ return x(i); })
                             .y(function(d){ return y(d.price); });
                             
         var svg = d3.select(options.element)
@@ -121,7 +118,7 @@ Template.marketChart.onRendered(function(){
             .append('circle')
                 .style('fill', function(d) { return myColors(d.price) })
                 .attr('r', 5)
-                .attr('cx', function(d) { return x(d.time); })
+                .attr('cx', function(d, i) { return x(i); })
                 .attr('cy', function(d){ return y(d.price); })
                 
         // Chart Title
