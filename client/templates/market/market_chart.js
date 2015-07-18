@@ -7,17 +7,6 @@ Template.marketChart.onRendered(function(){
         cOrange ='#ffb832',
         lOrange = '#FFDABD',
         cVeryLightOrange = '#FFF2E8';
-    
-    // Get data
-    var data = _.map(trades, 
-                    function(trade) {
-                        return {
-                            timeStamp:  trade.created_at,
-                            size:       trade.size,
-                            price:      trade.price
-                        }
-                    }
-                );
 
     // Set options
     options = {
@@ -33,52 +22,36 @@ Template.marketChart.onRendered(function(){
     };
     
     simpleLineChart = function(data, options) {
+
+        // data formattig function: date -> 15:23:05
+        var parseDate = d3.time.format("%H:%M:%S").parse;
+
+        var data = _.map(data, function(d) {
+                        return {
+                                    time:       d.created_at,
+                                    price:      d.price,
+                                    size:       d.size
+                                }
+                    });
+
+        var margin = options.margin;
         
-        // map timeStamps to the range [0,1]
-        // myData is used for drawing a chart, whereas original data is used for xAxes to display dates
-        var myData = _.map(data, function(d) {
-            var start_end_date = d3.extent(data, function(d) {return d.timeStamp});
-            
-            var start_date = start_end_date[0];
-            var last_date  = start_end_date[1];
-            
-            return {
-                time:       (d.timeStamp - start_date)/(last_date - start_date),
-                price:      d.price,
-                size:       d.size
-            }
-        });
+        var width   = options.width  - margin.left - margin.right,
+            height  = options.height - margin.top  - margin.bottom;
 
-
-        // Add market estimated value as first point in chart if exists
-        if (!!market.estimatedValue){
-            myData.unshift({
-                time:       0,
-                price:      market.estimatedValue,
-                size:       0
-            });
-        }
-    
         var min_y = d3.min(data, function(d){ return d.price; }),
             max_y = d3.max(data, function(d){ return d.price; });
-
-        
-        var myColors = d3.scale.linear()
-                        .domain(d3.extent(data, function(d) {return d.price}))
-                        .range(options.colorScale);
-        
-        var width   = options.width - options.margin.left - options.margin.right,
-            height  = options.height - options.margin.top - options.margin.bottom;
             
-        var x = d3.scale.linear()
-                    .domain(d3.extent(myData, function(d, i){ return i; }))
+        var x = d3.time.scale()
+                    .domain(d3.extent(data, function(d){ return d.time; }))
                     .range([0, width]);
-                    
+    
         var y = d3.scale.linear()
-                    .domain([ min_y - 0.05 * (max_y - min_y) , max_y + 0.05 * (max_y - min_y) ])
-                    .range([height + options.margin.top + options.margin.bottom, 0]);
-            
-        var xAxis = d3.svg.axis().scale(x)
+                    .domain([1.05 * min_y - 0.05 * max_y, 1.05 * max_y - 0.05 * min_y]) // 5% margin top and bottom
+                    .range([height, 0]);
+
+        var xAxis = d3.svg.axis()
+                        .scale(x)
                         .orient('bottom')
                         .ticks(options.xAxisTicks );
                         
@@ -86,25 +59,23 @@ Template.marketChart.onRendered(function(){
                         .orient('left')
                         .ticks(options.yAxisTicks);
                         
-        var valueline = d3.svg.line()
-                            // .interpolate(options.interpolation)
-                            .x(function(d, i){ return x(i); })
-                            .y(function(d){ return y(d.price); });
-                            
+        var line = d3.svg.line()
+                        .x(function(d){ return x(d.time); })
+                        .y(function(d){ return y(d.price); });
+                    
         var svg = d3.select(options.element)
                     .append('svg')
-                        .attr('width', options.width + options.margin.left + options.margin.right)
-                        .attr('height', options.height + options.margin.top + options.margin.bottom)
+                        .attr('width',  options.width  + margin.left + margin.right)
+                        .attr('height', options.height + margin.top  + margin.bottom)
                     .append('g')
-                        // set new (0, 0) for drawings that will come
-                        .attr('transform', 'translate(' + options.margin.left + ', ' + options.margin.top + ')')
+                        .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')')
                     
         svg.append("path")
-            .attr("d", valueline(myData));
+            .attr("d", line(data));
             
         svg.append('g')
             .attr('class', 'x axis')
-            .attr('transform', 'translate(0,' + options.height + ')')
+            .attr('transform', 'translate(0,' + height + ')')
             .call(xAxis)
             
         svg.append('g')
@@ -113,19 +84,18 @@ Template.marketChart.onRendered(function(){
         
         svg.append('g')
             .selectAll('circle')
-                .data(myData)
+                .data(data)
                 .enter()
             .append('circle')
-                .style('fill', function(d) { return myColors(d.price) })
                 .attr('r', 5)
-                .attr('cx', function(d, i) { return x(i); })
+                .attr('cx', function(d) { return x(d.time); })
                 .attr('cy', function(d){ return y(d.price); })
                 
         // Chart Title
         svg.append('text')
           .attr('x', (width/2))
           .attr('class', 'chart-title')
-          .attr('y', ( 0 - options.margin.top/2 ))
+          .attr('y', ( 0 - margin.top/2 ))
           .attr('text-anchor', 'middle')
           .text(options.chartTitle)
         
@@ -150,7 +120,7 @@ Template.marketChart.onRendered(function(){
   
     var make_x_axis = function(x){
       return d3.svg.axis()
-                .scale(x)
+                .scale(x_time)
                 .orient('bottom')
                 .ticks(options.xAxisTicks)
     };
@@ -163,5 +133,5 @@ Template.marketChart.onRendered(function(){
     };
     
     // Draw a chart
-    simpleLineChart(data,  options);
+    simpleLineChart(trades,  options);
 });
