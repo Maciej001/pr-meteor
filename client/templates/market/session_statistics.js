@@ -1,17 +1,17 @@
 Template.sessionStatistics.helpers({
 
 	statistics: function(){
-		var statistics = Statistics.findOne();
+		var market = Markets.findOne();
 
 		return {
-		 	estimatedValue: 					statistics.estimatedValue || 'NA',
-			actualValue: 							statistics.actualValue || 'NA',
-			number_of_trades: 				statistics.number_of_trades || 0,
-			total_contracts_traded: 	statistics.total_contracts_traded || 0,
-			open: 										statistics.open || 'NA',
-			high: 										statistics.high|| 'NA',
-			low: 											statistics.low || 'NA',
-			last: 										statistics.last || 'NA',	
+		 	estimatedValue: 					market.estimatedValue || 'NA',
+			actualValue: 							market.actualValue || 'NA',
+			number_of_trades: 				market.number_of_trades || 0,
+			total_contracts_traded: 	market.total_contracts_traded || 0,
+			open: 										market.open || 'NA',
+			high: 										market.high|| 'NA',
+			low: 											market.low || 'NA',
+			last: 										market.last || 'NA',	
 		}
 	}, 
 
