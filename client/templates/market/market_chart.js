@@ -139,7 +139,9 @@ Template.marketChart.onRendered(function(){
             .attr("d", area);
 
         // EstimatedValue
-        estValContainer.text('Est. Value: ' + estValue + ',000 ');
+        if (estValue) {
+            estValContainer.text('Est. Value: ' + estValue + ',000 ');
+        }
        
         my_line.datum('trades')
             .attr("d", line(trades));

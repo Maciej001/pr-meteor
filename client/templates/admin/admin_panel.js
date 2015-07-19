@@ -35,9 +35,33 @@ Template.adminPanel.events({
 			openHour: 				$('#openHour').val(),
 			closeHour: 				$('#closeHour').val()
 		}});
+	},
+
+	'click #open-market': function(e){
+		e.preventDefault();
+		var market = Markets.findOne();
+		Markets.update(market._id, { $set: { state: "open" } });
+	},
+
+	'click #close-market': function(e){
+		e.preventDefault();
+
+		var market = Markets.findOne();
+		Markets.update(market._id, { $set: { state: "closed" } });
+
+		Meteor.call('closeMarket');
+
 	}
 });
 
 Template.adminPanel.helpers({
-
+	marketState: function(){
+		var market = Markets.findOne();
+		if (market.state === 'open'){
+			return "open";
+		} 
+		else {
+			return "closed";
+		}
+	}
 });

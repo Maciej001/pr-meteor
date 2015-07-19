@@ -26,10 +26,6 @@ Meteor.publish('trades', function(){
 	return Trades.find({});
 });
 
-Meteor.publish('statistics', function(){
-	return Statistics.find({}, { limit: 1 });
-});
-
 Meteor.publish('portfolios', function(){
 	return Portfolios.find({});
 });
