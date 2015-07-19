@@ -13,17 +13,7 @@
 	}
 }
 
-#chart {
-	path{
-		fill: none;
-		stroke: white;
-		stroke-width: 4;
 
-	}
-	circle {
-		fill: $blue;
-	}
-}
 
 @keyframes circle-explode {
 	from {
@@ -65,6 +55,7 @@ svg {
 	fill: none;
 }
 
+
 .chart-title {
 	font-size: 2rem;
 	font-weight: bold;
@@ -72,7 +63,38 @@ svg {
 	fill: white;
 }
 
-.area {
-	fill: lighten($blue, 10%);
-	stroke-width: 0;
+.chart-text-light {
+	fill: lighten($blue, 20%);
 }
+
+#chart {
+	path {
+		fill: none;
+		stroke: white;
+		stroke-width: 3;
+
+	}
+	
+	circle {
+		fill: $blue;
+	}
+
+	.area {
+		fill: lighten($blue, 5%);
+		stroke-width: 0;
+	}
+
+	.grid .tick {
+    stroke: lighten($blue, 15%);
+	}
+
+	.grid path {
+      stroke-width: 0;
+	}
+
+}
+
+
+
+
+
