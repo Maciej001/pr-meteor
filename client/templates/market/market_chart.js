@@ -29,6 +29,7 @@ Template.marketChart.onRendered(function(){
 
         // data formattig function: date -> 15:23:05
         var parseDate = d3.time.format("%H:%M:%S").parse;
+        var formatTime = d3.time.format("%I:%M:%S %p");
 
         var data = _.map(data, function(d) {
                         return {
@@ -73,21 +74,33 @@ Template.marketChart.onRendered(function(){
                         .x(function(d){ return x(d.time); })
                         .y(function(d){ return y(d.price); });
                     
+        var div = d3.select("body").append("div")
+                    .attr('class', 'tooltip')
+                    .style('opacity', 0)
+
         var svg = d3.select(options.element)
                     .append('svg')
                         .attr('width',  options.width  + margin.left + margin.right)
                         .attr('height', options.height)
                     .append('g')
                         .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')')
-       
-        svg.append("path")
-            .attr('class', 'line')
-            .attr("d", line(data));
-
         svg.append("path")
             .datum(data)
             .attr('class', 'area')
             .attr("d", area);
+
+        svg.append('g')
+          .attr('class', 'grid')
+          .style("stroke-dasharray", ("6, 6"))
+          .call(make_y_axis(y)
+                  .tickSize( - width, 0, 0)
+                  .tickFormat('')
+           )
+        svg.append("path")
+            .attr('class', 'line')
+            .attr("d", line(data));
+
+        
             
         svg.append('g')
             .attr('class', 'x axis')
@@ -103,9 +116,23 @@ Template.marketChart.onRendered(function(){
                 .data(data)
                 .enter()
             .append('circle')
+                .attr('class', 'dot')
                 .attr('r', 5)
                 .attr('cx', function(d) { return x(d.time); })
                 .attr('cy', function(d){ return y(d.price); })
+                .on("mouseover", function(d) {
+                        div.transition()
+                            .duration(100)
+                            .style('opacity', 0.8);
+                        div.html(d.size + " contracts, " + " at " + d.price + ",000" + "<br/>" + "at " + formatTime(d.time))
+                            .style('left', (d3.event.pageX - 80)+ 'px')
+                            .style('top', (d3.event.pageY - 55) + 'px');
+                    })
+                .on("mouseout", function(d){
+                        div.transition()
+                        .duration(500)
+                        .style("opacity", 0)
+                    })
                 
         // Chart Title
         svg.append('text')
@@ -124,13 +151,6 @@ Template.marketChart.onRendered(function(){
             .text(estValue)
 
         
-        svg.append('g')
-          .attr('class', 'grid')
-          .style("stroke-dasharray", ("6, 6"))
-          .call(make_y_axis(y)
-                  .tickSize( - width, 0, 0)
-                  .tickFormat('')
-           )
         
     }; // end of function
 
