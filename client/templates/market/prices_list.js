@@ -4,5 +4,8 @@ Template.pricesList.helpers({
 	},
 	offers: function(){
 		return Offers.find({}, {sort: {price: 1}, limit: 5});
+	},
+	anyPrices: function(){
+		return (Bids.findOne() || Offers.findOne());
 	}
 });

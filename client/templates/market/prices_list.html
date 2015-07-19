@@ -1,14 +1,19 @@
 <template name="pricesList">
-	<ul class="bids">
-		<li class="price-item price-item-header">Bids</li>
-		{{#each bids}}
-			{{>	priceItem}}
-		{{/each}}
-	</ul>
-	<ul class="offers">
-		<li class="price-item price-item-header">Offers</li>
-		{{#each offers}}
-			{{> priceItem}}
-		{{/each}}
-	</ul>
+	{{#if anyPrices}}
+		<ul class="bids">
+			<li class="price-item price-item-header">Bids</li>
+			{{#each bids}}
+				{{>	priceItem}}
+			{{/each}}
+		</ul>
+		<ul class="offers">
+			<li class="price-item price-item-header">Offers</li>
+			{{#each offers}}
+				{{> priceItem}}
+			{{/each}}
+		</ul>
+	{{else}}
+		<h4>No prices </h4>
+		<h4>Click New Order button and add your bid or offer</h4>
+	{{/if}}
 </template>

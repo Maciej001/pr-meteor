@@ -23,7 +23,7 @@ Meteor.publish('offers', function(){
 });
 
 Meteor.publish('trades', function(){
-	return Trades.find({}, { sort: { created_at: -1 } } );
+	return Trades.find({});
 });
 
 Meteor.publish('statistics', function(){

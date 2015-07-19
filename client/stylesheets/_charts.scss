@@ -27,12 +27,6 @@
 	}
 
 }
-#chart circle {
-	fill: $blue;
-	stroke-width: 4;
-	stroke: white;
-
-}
 
 .axis  {
 	text {
@@ -71,16 +65,18 @@ svg {
 	path {
 		fill: none;
 		stroke: white;
-		stroke-width: 3;
+		stroke-width: 1;
 
 	}
 	
 	circle {
 		fill: $blue;
+		stroke-width: 2;
+		stroke: white;
 	}
 
 	.area {
-		fill: lighten($blue, 5%);
+		fill: lighten($blue, 7%);
 		stroke-width: 0;
 	}
 
@@ -94,7 +90,6 @@ svg {
 
 
 }
-
 
 	div.tooltip {
 		position: absolute;

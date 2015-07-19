@@ -1,11 +1,7 @@
 Template.marketChart.onRendered(function(){
   
-    var trades = Trades.find({ side: 'buy' }).fetch();
-    var market = Markets.findOne({});
-    var statistics = Statistics.findOne({});
+    
 
-    var estValue = ("Est. Value:  " + market.estimatedValue + ",000") || '';
-    var lastTrade = statistics.last || '';
 
     var cPink = '#c61c6f',
         cOrange ='#ffb832',
@@ -25,30 +21,51 @@ Template.marketChart.onRendered(function(){
         yAxisTicks:     10
     };
     
-    simpleLineChart = function(data, options) {
+    var market =        Markets.findOne({}),
+        statistics =    Statistics.findOne({}),
+        estValue =      market.estimatedValue || '',
+        lastTrade =     statistics.last || '',
+        margin =        options.margin;
 
-        // data formattig function: date -> 15:23:05
-        var parseDate = d3.time.format("%H:%M:%S").parse;
-        var formatTime = d3.time.format("%I:%M:%S %p");
-
-        var data = _.map(data, function(d) {
-                        return {
-                                    time:       d.created_at,
-                                    price:      d.price,
-                                    size:       d.size
-                                }
-                    });
-
-        var margin = options.margin;
+    // data formattig function: date -> 15:23:05
+    var parseDate = d3.time.format("%H:%M:%S").parse;
+    var formatTime = d3.time.format("%I:%M:%S %p");
         
-        var width   = options.width,
-            height  = options.height - margin.top  - margin.bottom;
+    var width   = options.width,
+        height  = options.height - margin.top  - margin.bottom;
 
-        var min_y = d3.min(data, function(d){ return d.price; }),
-            max_y = d3.max(data, function(d){ return d.price; });
+    var make_x_axis = function(x){
+      return d3.svg.axis()
+                .scale(x)
+                .orient('bottom')
+                .ticks(options.xAxisTicks)
+    };
+    
+    var make_y_axis = function(y){
+      return d3.svg.axis()
+        .scale(y)
+        .orient('left')
+        .ticks(options.yAxisTicks)
+    };
+
+    var svg = d3.select(options.element)
+                .append('svg')
+                    .attr('width',  options.width  + margin.left + margin.right)
+                    .attr('height', options.height)
+                .append('g')
+                    .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
+
+
+    Tracker.autorun(function(){
+
+        // Dependency
+        var trades = Trades.find({ side: 'buy' }, { fields: { created_at: 1, price: 1, size: 1 } }).fetch();
+
+        var min_y = d3.min(trades, function(d){ return d.price; }),
+            max_y = d3.max(trades, function(d){ return d.price; });
                             
         var x = d3.time.scale()
-                    .domain(d3.extent(data, function(d){ return d.time; }))
+                    .domain(d3.extent(trades, function(d){ return d.created_at; }))
                     .range([0, width]);
     
         var y = d3.scale.linear()
@@ -66,26 +83,22 @@ Template.marketChart.onRendered(function(){
                         .ticks(options.yAxisTicks);
 
         var area = d3.svg.area()
-                        .x(function(d) { return x(d.time); })
+                        .x(function(d) { return x(d.created_at); })
                         .y0(height)
                         .y1(function(d) { return y(d.price); })
                         
         var line = d3.svg.line()
-                        .x(function(d){ return x(d.time); })
+                        .x(function(d){ return x(d.created_at); })
                         .y(function(d){ return y(d.price); });
                     
         var div = d3.select("body").append("div")
                     .attr('class', 'tooltip')
-                    .style('opacity', 0)
+                    .style('opacity', 0);
 
-        var svg = d3.select(options.element)
-                    .append('svg')
-                        .attr('width',  options.width  + margin.left + margin.right)
-                        .attr('height', options.height)
-                    .append('g')
-                        .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')')
+
+
         svg.append("path")
-            .datum(data)
+            .datum(trades)
             .attr('class', 'area')
             .attr("d", area);
 
@@ -95,12 +108,11 @@ Template.marketChart.onRendered(function(){
           .call(make_y_axis(y)
                   .tickSize( - width, 0, 0)
                   .tickFormat('')
-           )
+           );
+
         svg.append("path")
             .attr('class', 'line')
-            .attr("d", line(data));
-
-        
+            .attr("d", line(trades));
             
         svg.append('g')
             .attr('class', 'x axis')
@@ -113,18 +125,18 @@ Template.marketChart.onRendered(function(){
         
         svg.append('g')
             .selectAll('circle')
-                .data(data)
+                .data(trades)
                 .enter()
             .append('circle')
                 .attr('class', 'dot')
                 .attr('r', 5)
-                .attr('cx', function(d) { return x(d.time); })
+                .attr('cx', function(d) { return x(d.created_at); })
                 .attr('cy', function(d){ return y(d.price); })
                 .on("mouseover", function(d) {
                         div.transition()
                             .duration(100)
                             .style('opacity', 0.8);
-                        div.html(d.size + " contracts, " + " at " + d.price + ",000" + "<br/>" + "at " + formatTime(d.time))
+                        div.html(d.size + " contracts, " + " at " + d.price + ",000" + "<br/>" + "at " + formatTime(d.created_at))
                             .style('left', (d3.event.pageX - 80)+ 'px')
                             .style('top', (d3.event.pageY - 55) + 'px');
                     })
@@ -143,33 +155,15 @@ Template.marketChart.onRendered(function(){
           .text(options.chartTitle)
 
         // Est. Value
-        svg.append('text')
-            .attr('x', 0)
-            .attr('class', 'chart-text-light')
-            .attr('y', ( 0 - margin.top/2 + 20))
-            .attr('text-anchor', 'left')
-            .text(estValue)
+        if (estValue !== ''){
+            svg.append('text')
+                .attr('x', 0)
+                .attr('class', 'chart-text-light')
+                .attr('y', ( 0 - margin.top/2 + 20))
+                .attr('text-anchor', 'left')
+                .text('Est. Value: ' + estValue + ',000 ')
+        }
 
-        
-        
-    }; // end of function
+    }); // Tracker.autorun ends;
 
-
-  
-    var make_x_axis = function(x){
-      return d3.svg.axis()
-                .scale(x)
-                .orient('bottom')
-                .ticks(options.xAxisTicks)
-    };
-    
-    var make_y_axis = function(y){
-      return d3.svg.axis()
-        .scale(y)
-        .orient('left')
-        .ticks(options.yAxisTicks)
-    };
-    
-    // Draw a chart
-    simpleLineChart(trades,  options);
 });
