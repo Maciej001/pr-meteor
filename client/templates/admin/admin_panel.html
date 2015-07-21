@@ -70,17 +70,25 @@
 
 
 			<div class="col-xs-6"> <!-- Right Panel -->
-				<ul class="nav nav-tabs">
-				  <li role="presentation" class="active"><a href="#">Trades</a></li>
-				  <li role="presentation" class="all-bids"><a href="#">Bids</a></li>
-				  <li role="presentation" class="all-offers"><a href="#">Offers</a></li>
-				  <li role="presentation" class="all-prices"><a href="#">Prices</a></li>
-				  <li role="presentation" class="all-market"><a href="#">Market</a></li>
-				  <li role="presentation" class="all-portfolio"><a href="#">Portfolio</a></li>
-				</ul>	
+				<div class="row">
+					<div class="col-xs-12">
+						<ul id="admin-menu" class="nav nav-pills">
+						  <li role="presentation" data-template="all-trades" class="active"><a href="#">Trades</a></li>
+						  <li role="presentation" data-template="all-bids"><a href="#">Bids</a></li>
+						  <li role="presentation" data-template="all-offers"><a href="#">Offers</a></li>
+						  <li role="presentation" data-template="all-prices"><a href="#">Prices</a></li>
+						  <li role="presentation" data-template="all-market"><a href="#">Market</a></li>
+						  <li role="presentation" data-template="all-portfolio"><a href="#">Portfolio</a></li>
+						</ul>	
+					</div>
+
+					<div class="col-xs-12">
+						{{> Template.dynamic template=activeModal }}
+					</div>
+				</div>
 			</div> <!-- right panel ends -->
 
-			
+
 
 		</div> <!-- row -->
 	</div> <!-- container -->
