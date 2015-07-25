@@ -16,3 +16,11 @@ td.order-active {
 		font-weight: bold;
 	}
 }
+
+.header-sortable {
+	cursor: pointer;
+	&:hover {
+		background: $blue;
+		color: white;
+	}
+}

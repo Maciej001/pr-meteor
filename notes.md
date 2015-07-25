@@ -125,6 +125,31 @@ in console:
 `Items = new Meteor.Collection` - ???
 
 
+# Masterpieces
+
+## Template reactive variable
+
+```
+<template name=”info”>
+  {{text}}
+</template>
+Template.info.helpers({
+  text: function() {
+    return Template.instance().text.get()
+  }
+})
+Template.info.events({
+  ‘click .button’: function(e,t) {
+    Template.instance().text.set(‘bar’)
+  }
+})
+Template.info.created = function() {
+  this.text = new ReactiveVar(‘foo’)
+  this.text.set(‘foo’)
+}
+```
+
+
 
 
 

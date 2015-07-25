@@ -1,0 +1,32 @@
+<template name="adminTrades">
+
+	<table class="table table-hover table-condensed">
+		<thead>
+			<tr>
+				<th class="header-sortable" data-sort="created_at">Time stamp</th>
+				<th class="header-sortable" data-sort="userId">Trader</th>
+				<th class="header-sortable" data-sort="side">Side</th>
+				<th class="header-sortable" data-sort="size">Size</th>
+				<th class="header-sortable" data-sort="price">Price</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each trades}}
+				<tr>
+					<td>{{ tradeDate }}</td>
+					<td>{{ userName }}</td>
+					<td>{{ side }}</td>
+					<td>{{ size }}</td>
+					<td>{{ price }}</td>
+					<td>
+						<button class="btn btn-danger delete-trade">
+							<span class="glyphicon glyphicon-trash ." aria-hidden="true"></span>
+						</button>
+					</td>
+				</tr>
+			{{/each}}
+		</tbody>
+	</table>
+	
+</template>

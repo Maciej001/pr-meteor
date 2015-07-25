@@ -3,7 +3,7 @@
 <div class="container-fluid" id="admin-panel">
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-6">
+			<div class="col-xs-12 col-md-4">
 
 				<form class="form-horizontal admin-form">
 					<h4>Market Setup</h4>
@@ -40,51 +40,37 @@
 
 				</form>
 
-					<div class="row margin-top-20">
-						<h4>Open and Close Market</h4>
-						<h5>Market is {{marketState}}</h5>
+				<div class="row margin-top-20">
+					<h4>Open and Close Market</h4>
+					<h5>Market is {{ marketState }}</h5>
 
-						<button id="open-market" class="btn btn-success">Open Market</button>
-						<button id="close-market" class="btn btn-danger">Close Market</button>
+					<button id="open-market" class="btn btn-success">Open Market</button>
+					<button id="close-market" class="btn btn-danger">Close Market</button>
+				</div>
+
+				<div class="row margin-top-20">
+					<h4>Remove whatever </h4>
+					
+					<div class="btn-group" role="group" aria-label="">
+						<button id="remove-trades" class="btn btn-danger">Remove Trades</button>
+						<button id="remove-bids" class="btn btn-danger">Remove Bids</button>
+						<button id="remove-offers" class="btn btn-danger">Remove Offers</button>
+					</div>
+						
+					<div class="btn-group margin-top-20" role="group" aria-label="">
+						<button id="remove-prices" class="btn btn-danger">Remove Prices</button>
+						<button id="reset-market" class="btn btn-danger">Reset Market</button>
+						<button id="reset-portfolio" class="btn btn-danger">Reset Portfolio</button>
 					</div>
 
-					<div class="row margin-top-20">
-						
-						<h4>Remove whatever </h4>
-						
-						<div class="btn-group" role="group" aria-label="">
-							<button id="remove-trades" class="btn btn-danger">Remove Trades</button>
-							<button id="remove-bids" class="btn btn-danger">Remove Bids</button>
-							<button id="remove-offers" class="btn btn-danger">Remove Offers</button>
-						</div>
-							
-						<div class="btn-group margin-top-20" role="group" aria-label="">
-							<button id="remove-prices" class="btn btn-danger">Remove Prices</button>
-							<button id="reset-market" class="btn btn-danger">Reset Market</button>
-							<button id="reset-portfolio" class="btn btn-danger">Reset Portfolio</button>
-						</div>
-
-					</div>
+				</div>
 
 			</div> <!-- left panel -->
 
 
-			<div class="col-xs-6"> <!-- Right Panel -->
+			<div class="col-xs-12 col-md-8"> <!-- Right Panel -->
 				<div class="row">
-					<div class="col-xs-12">
-						<ul id="admin-menu" class="nav nav-pills">
-						  <li role="presentation" data-template="all-trades" class="active"><a href="#">Trades</a></li>
-						  <li role="presentation" data-template="all-bids"><a href="#">Bids</a></li>
-						  <li role="presentation" data-template="all-offers"><a href="#">Offers</a></li>
-						  <li role="presentation" data-template="all-prices"><a href="#">Prices</a></li>
-						  <li role="presentation" data-template="all-market"><a href="#">Market</a></li>
-						  <li role="presentation" data-template="all-portfolio"><a href="#">Portfolio</a></li>
-						</ul>	
-					</div>
-
-					<div class="col-xs-12">
-						{{> Template.dynamic template=activeModal }}
-					</div>
+					{{> adminContent }}
 				</div>
 			</div> <!-- right panel ends -->
 

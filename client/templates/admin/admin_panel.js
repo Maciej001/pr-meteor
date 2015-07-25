@@ -51,15 +51,6 @@ Template.adminPanel.events({
 
 		Meteor.call('closeMarket');
 
-	},
-	
-	'click #admin-menu > li': function(e) {
-		var name = $(e.target).parent().data('template');
-		e.preventDefault();
-
-		$('#admin-menu li').removeClass('active');
-		$(e.target).parent().addClass('active');
-		Session.set("adminMenu", name);
 	}
 });
 
@@ -73,29 +64,4 @@ Template.adminPanel.helpers({
 			return "closed";
 		}
 	},
-
-	activeModal: function() {
-		var template = Session.get('adminMenu');
-
-		switch (template) {
-			case "all-trades":
-				return 'adminTrades';
-				break;
-			case "all-bids":
-				return 'adminBids';
-				break;
-			case "all-offers":
-				return 'adminOffers';
-				break;
-			case "all-prices":
-				return 'adminPrices';
-				break;
-			case "all-market":
-				return 'adminMarket';
-				break;
-			case "all-portfolio":
-				return 'adminPortfolio';
-				break;
-		}
-	}
 });

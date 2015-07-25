@@ -23,4 +23,3 @@ if (Meteor.isServer) {
 
   });
 }
-
