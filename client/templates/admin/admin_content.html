@@ -3,15 +3,13 @@
 	<div class="col-xs-12">
 		<ul id="admin-menu" class="nav nav-pills">
 		  <li role="presentation" data-template="trades" class="active"><a href="#">Trades</a></li>
-		  <li role="presentation" data-template="bids"><a href="#">Bids</a></li>
-		  <li role="presentation" data-template="offers"><a href="#">Offers</a></li>
 		  <li role="presentation" data-template="prices"><a href="#">Prices</a></li>
 		  <li role="presentation" data-template="markets"><a href="#">Market</a></li>
 		  <li role="presentation" data-template="portfolios"><a href="#">Portfolios</a></li>
 		</ul>	
 	</div>
 
-	<div class="col-xs-12">
+	<div class="col-xs-12 admin-table">
 
 		{{#if Template.subscriptionsReady}}
 			{{> Template.dynamic template=template }}

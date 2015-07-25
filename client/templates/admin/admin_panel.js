@@ -1,4 +1,8 @@
-Template.adminPanel.onRendered(function(){
+
+
+// INITIALIZERS
+
+Template.adminPanel.onCreated(function(){
 	var market = Markets.findOne();
 	var currentEstimatedValue = Markets.estimatedValue;
 
@@ -16,6 +20,9 @@ Template.adminPanel.onRendered(function(){
 		$('#closeHour').val(market.closeHour);
 	}
 });
+
+
+// EVENTS
 
 Template.adminPanel.events({
 	'submit form': function(e){
@@ -54,6 +61,10 @@ Template.adminPanel.events({
 	}
 });
 
+
+
+// HELPERS
+
 Template.adminPanel.helpers({
 	marketState: function(){
 		var market = Markets.findOne();
@@ -64,4 +75,52 @@ Template.adminPanel.helpers({
 			return "closed";
 		}
 	},
+
+	mktOpen: function(){
+		return Markets.findOne().open;
+	}, 
+
+	mktHigh: function(){
+		return Markets.findOne().high;
+	}, 
+
+	mktLow: function(){
+		return Markets.findOne().low;
+	}, 
+
+	mktLast: function(){
+		return Markets.findOne().last;
+	}, 
+
+	mktMultiplier: function(){
+		return Markets.findOne().multiplier;
+	}, 
+
+	mktMaxPosition: function(){
+		return Markets.findOne().maxPosition;
+	}, 	
+
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
