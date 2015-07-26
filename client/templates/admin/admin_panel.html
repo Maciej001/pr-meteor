@@ -65,32 +65,24 @@
 				  </div>
 
 				  <div class="form-group">
-				      <button type="submit" class="btn btn-warning">Save</button>
+				      <button type="submit" class="btn btn-warning">Save Market</button>
 				  </div>
 
 				</form>
 
 				<div class="row margin-top-20">
-					<h4>Open and Close Market</h4>
-					<h5>Market is {{ marketState }}</h5>
+					<h4>Market is {{ marketState }}</h4>
 
 					<button id="open-market" class="btn btn-success">Open Market</button>
 					<button id="close-market" class="btn btn-danger">Close Market</button>
 				</div>
 
-				<div class="row margin-top-20">
-					<h4>Remove whatever </h4>
-					
-					<div class="btn-group" role="group" aria-label="">
-						<button id="remove-trades" class="btn btn-danger">Remove Trades</button>
-						<button id="remove-prices" class="btn btn-danger">Remove Prices</button>
-					</div>
-						
-					<div class="btn-group margin-top-20" role="group" aria-label="">
-						<button id="reset-market" class="btn btn-danger">Reset Market</button>
-						<button id="reset-portfolio" class="btn btn-danger">Reset Portfolios</button>
-					</div>
-
+				<div class="row margin-top-20 danger-zone">
+					<h4>DANGER ZONE</h4>
+					<p>Remove Trades resets also Market</p>	
+					<p>Remove Prices removes also Bids and Offers</p>
+					<button id="remove-trades" class="btn btn-danger">Remove Trades</button>
+					<button id="remove-prices" class="btn btn-danger">Remove Prices</button>
 				</div>
 
 			</div> <!-- left panel -->
