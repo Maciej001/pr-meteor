@@ -32,6 +32,7 @@ Template.adminPanel.onCreated(function(){
 Template.adminPanel.events({
 	'submit form': function(e){
 		var market = Markets.findOne({});
+
 		var actualValue = function(){
 					if ($('#actualValue').val() === '' || $('#actualValue').val() === 0 ) {
 						return "not available yet";
@@ -42,11 +43,10 @@ Template.adminPanel.events({
 				};
 
 		var closeHour = function(){
+					// close market if actual value given
 					if (Number($('#actualValue').val()) > 0) {
 						var closeTime = new Date();
-						console.log(closeTime);
 						return moment(closeTime).format("HH:MM");
-						
 					}
 					else {
 						return $('#closeHour').val();
@@ -56,6 +56,7 @@ Template.adminPanel.events({
 		e.preventDefault();
 
 		Markets.update({ _id: market._id }, { $set: {
+			state: 						market.state,
 			estimatedValue: 	Number($('#estimatedValue').val()),
 			actualValue: 			actualValue(),
 			openHour: 				$('#openHour').val(),
@@ -70,7 +71,7 @@ Template.adminPanel.events({
 
 		// If Actual Value
 		if ($('#actualValue').val() > 0 ) {
-
+			Markets.update({ _id: market._id }, { $set: { state: 'closed' } });
 		}
 	},
 
