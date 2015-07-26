@@ -6,7 +6,7 @@
 			<div class="col-xs-12 col-md-4">
 
 				<form class="form-horizontal admin-form">
-					<h4>Market Setup</h4>
+					<h4>MARKET SETUP</h4>
 					
 				  <div class="form-group form-number">
 				    <label for="estimatedValue" class="col-xs-6">Estimated Value</label>
@@ -70,23 +70,20 @@
 
 				</form>
 				
-				<div class="container">
 				
-					<div class="row margin-top-20">
-						<h4>Market is {{ marketState }}</h4>
+				<div class="margin-top-20 open-market">
+					<h4>MARKET IS {{ marketState }}</h4>
 
-						<button id="open-market" class="btn btn-success">Open Market</button>
-						<button id="close-market" class="btn btn-danger">Close Market</button>
-					</div>
+					<button id="open-market" class="btn btn-success">Open Market</button>
+					<button id="close-market" class="btn btn-danger">Close Market</button>
+				</div>
 
-					<div class="row margin-top-20 danger-zone">
-						<h4>DANGER ZONE</h4>
-						<p>Remove Trades resets also Market</p>	
-						<p>Remove Prices removes also Bids and Offers</p>
-						<button id="remove-trades" class="btn btn-danger">Remove Trades</button>
-						<button id="remove-prices" class="btn btn-danger">Remove Prices</button>
-					</div>
-
+				<div class="margin-top-20 danger-zone">
+					<h4>DANGER ZONE</h4>
+					<p>Removes Trades and resets Market</p>	
+					<p>Removes Prices and removes Bids and Offers</p>
+					<button id="remove-trades" class="btn btn-danger">Remove Trades</button>
+					<button id="remove-prices" class="btn btn-danger">Remove Prices</button>
 				</div>
 
 			</div> <!-- left panel -->
@@ -97,8 +94,6 @@
 					{{> adminContent }}
 				</div>
 			</div> <!-- right panel ends -->
-
-
 
 		</div> <!-- row -->
 	</div> <!-- container -->

@@ -1,8 +1,14 @@
-.danger-zone {
+.danger-zone, 
+.admin-form,
+.open-market {
 	margin-bottom: 50px;
 
 	h4 {
 		color: $red;
+
 		font-weight: bold;
+		padding-bottom: 5px;
+		margin-bottom: 20px;
+		border-bottom: 1px solid $red;
 	}
 }

@@ -87,10 +87,10 @@ Template.adminPanel.helpers({
 	marketState: function(){
 		var market = Markets.findOne();
 		if (market.state === 'open'){
-			return "open";
+			return "OPEN";
 		} 
 		else {
-			return "closed";
+			return "CLOSED";
 		}
 	},
 
