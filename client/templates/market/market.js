@@ -46,6 +46,12 @@ Template.market.helpers({
 			}
 		}
 
+	},
+
+	marketOpen: function(){
+		var market = Markets.findOne({});
+
+		return market.isOpen();
 	}
 });
 

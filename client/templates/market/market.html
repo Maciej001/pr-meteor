@@ -27,20 +27,27 @@
 
 			<div class="row">
 
-				<div class="col-xs-12 col-md-4 prices-panel">
+				{{#if marketOpen}}
+					<div class="col-xs-12 col-md-4 prices-panel">
 
-					<div class="row" id="new-order-form">
-						<div class="col-xs-12">
-							{{> Template.dynamic template=newOrderTemplate}}
+						<div class="row" id="new-order-form">
+							<div class="col-xs-12">
+								{{> Template.dynamic template=newOrderTemplate}}
+							</div>
 						</div>
+
+						<div class="row">
+							<div class="col-xs-12 prices-list">
+								{{> pricesList}}
+							</div>
+						</div> <!-- Row ends -->
+
+					</div> <!-- End of prices-panel -->
+				{{else}}
+					<div class="col-xs-12 col-md-4 market-closed">
+						<h2>Market is closed</h2>
 					</div>
-
-					<div class="row">
-						<div class="col-xs-12 prices-list">
-							{{> pricesList}}
-						</div>
-					</div> <!-- Row ends -->
-				</div> <!-- End of prices-panel -->
+				{{/if}}
 
 				<div class="col-xs-12 col-md-8 chart">
 					{{>marketChart }}
