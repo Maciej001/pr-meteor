@@ -44,9 +44,34 @@ Template.adminPrices.helpers({
 // EVENTS
 
 Template.adminPrices.events({
+
 	'click .delete-trade': function(){
+		var order = Prices.findOne({ _id: this._id });
+
+		// Remove order from Bids or Offers collection
+		if (order.side === 'buy') {
+			var bid = Bids.findOne({ prices: order._id });
+
+			Bids.update({ _id: bid._id }, 
+				{ $inc:  { size_left: -order.size_left },
+				  $pull: { prices: order._id } 
+				}
+			);
+		}
+		else {
+			var offer = Offers.findOne({ prices: order._id });
+
+			Offers.update({ _id: offer._id },
+				{ $inc: 	{ size_left: -order.size_left},
+					$pull: 	{ prices: order._id }
+				}
+			);
+		}
+
+		// Remove order
 		Prices.remove(this._id);
 	},
+
 	'click th': function(e,t){
 		var sortBy = $(e.target).data('sort');
 		var sortDirection = Session.get('sortDirection');
