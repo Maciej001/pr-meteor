@@ -3,6 +3,11 @@
 // INITIALIZERS
 
 Template.adminPanel.onCreated(function(){
+
+	// Initialization
+	Session.set('sortOrder', { created_at: 1 });
+	Session.set('sortDirection', 1);
+
 	var market = Markets.findOne();
 	var currentEstimatedValue = Markets.estimatedValue;
 
@@ -77,28 +82,40 @@ Template.adminPanel.helpers({
 	},
 
 	mktOpen: function(){
-		return Markets.findOne().open;
+		return Markets.findOne().open || '';
 	}, 
 
 	mktHigh: function(){
-		return Markets.findOne().high;
+		return Markets.findOne().high || '';
 	}, 
 
 	mktLow: function(){
-		return Markets.findOne().low;
+		return Markets.findOne().low || '';
 	}, 
 
 	mktLast: function(){
-		return Markets.findOne().last;
+		return Markets.findOne().last || '';
 	}, 
 
 	mktMultiplier: function(){
-		return Markets.findOne().multiplier;
+		return Markets.findOne().multiplier || '';
+	}, 
+
+	mktEstValue: function(){
+		return Markets.findOne().estimatedValue || '';
 	}, 
 
 	mktMaxPosition: function(){
-		return Markets.findOne().maxPosition;
-	}, 	
+		return Markets.findOne().maxPosition || '';
+	}, 
+
+	mktOpenHour: function(){
+		return Markets.findOne().openHour || '';
+	}, 
+
+	mktCloseHour: function(){
+		return Markets.findOne().closeHour || '';
+	}, 
 
 });
 
