@@ -45,7 +45,13 @@ Template.adminPanel.events({
 													}
 												},
 			openHour: 				$('#openHour').val(),
-			closeHour: 				$('#closeHour').val()
+			closeHour: 				$('#closeHour').val(),
+			open: 						$('#mktOpen').val(),
+			high: 						$('#mktHigh').val(),
+			low: 							$('#mktLow').val(),
+			last: 						$('#mktClose').val(),
+			multiplier:				$('#mktMultiplier').val(),
+			maxPosition:			$('#mktMaxPosition').val(),
 		}});
 	},
 
@@ -63,6 +69,13 @@ Template.adminPanel.events({
 
 		Meteor.call('closeMarket');
 
+	},
+	'click #remove-prices': function(){
+		Meteor.call('removePrices');
+	},
+
+	'click #remove-trades': function(){
+		Meteor.call('removeTrades');
 	}
 });
 
