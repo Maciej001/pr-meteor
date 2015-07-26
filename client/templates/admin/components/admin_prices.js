@@ -53,6 +53,9 @@ Template.adminPrices.events({
 
 		$('.table-admin-prices th').removeClass('active-header');
 		$(e.target).addClass('active-header');
+
+		$('.table-admin-prices td').removeClass('active-cell');
+		$(".table-admin-prices td[data-sort=" + sortBy + "]").addClass('active-cell');
 		
 		var sortOrder = {};
 		sortOrder[sortBy] = sortDirection;

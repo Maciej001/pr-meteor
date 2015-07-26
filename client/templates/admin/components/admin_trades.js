@@ -54,6 +54,9 @@ Template.adminTrades.events({
 
 		$('.table-admin-trades th').removeClass('active-header');
 		$(e.target).addClass('active-header');
+
+		$('.table-admin-trades td').removeClass('active-cell');
+		$(".table-admin-trades td[data-sort=" + sortBy + "]").addClass('active-cell');
 		
 		var sortOrder = {};
 		sortOrder[sortBy] = sortDirection;

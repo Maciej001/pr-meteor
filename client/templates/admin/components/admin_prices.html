@@ -3,7 +3,7 @@
 	<table class="table table-hover table-condensed table-admin-prices">
 		<thead>
 			<tr>
-				<th class="header-sortable" data-sort="created_at">Time stamp</th>
+				<th class="header-sortable active-header" data-sort="created_at">Time stamp</th>
 				<th class="header-sortable" data-sort="userId">Trader</th>
 				<th class="header-sortable" data-sort="side">Side</th>
 				<th class="header-sortable" data-sort="state">State</th>
@@ -16,13 +16,13 @@
 		<tbody>
 			{{#each prices}}
 				<tr>
-					<td>{{ tradeDate }}</td>
-					<td>{{ userName }}</td>
-					<td>{{ side }}</td>
-					<td>{{ state }}</td>
-					<td>{{ size }}</td>
-					<td>{{ size_left }}</td>
-					<td>{{ price }}</td>
+					<td class="active-cell" data-sort="created_at">{{ tradeDate }}</td>
+					<td data-sort="userId">{{ userName }}</td>
+					<td data-sort="side">{{ side }}</td>
+					<td data-sort="state">{{ state }}</td>
+					<td data-sort="size">{{ size }}</td>
+					<td data-sort="size_left">{{ size_left }}</td>
+					<td data-sort="price">{{ price }}</td>
 					<td>
 						<button class="btn btn-danger delete-trade">
 							<span class="glyphicon glyphicon-trash ." aria-hidden="true"></span>

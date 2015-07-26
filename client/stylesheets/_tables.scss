@@ -26,12 +26,11 @@ td.order-active {
 .header-sortable {
 	cursor: pointer;
 	&:hover {
-		background: $blue;
-		color: white;
+		background: $vlight-grey;
 	}
 }
 
 .active-header, .active-cell {
-	background: $vlight-grey;
+	background: $extr-light-grey;
 }
 
