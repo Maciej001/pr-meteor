@@ -32,20 +32,34 @@ Template.adminPanel.onCreated(function(){
 Template.adminPanel.events({
 	'submit form': function(e){
 		var market = Markets.findOne({});
+		var actualValue = function(){
+					if ($('#actualValue').val() === '' || $('#actualValue').val() === 0 ) {
+						return "not available yet";
+					} 
+					else {
+						return Number($('#actualValue').val());
+					}
+				};
+
+		var closeHour = function(){
+					if (Number($('#actualValue').val()) > 0) {
+						var closeTime = new Date();
+						console.log(closeTime);
+						return moment(closeTime).format("HH:MM");
+						
+					}
+					else {
+						return $('#closeHour').val();
+					}
+				}
 
 		e.preventDefault();
 
 		Markets.update({ _id: market._id }, { $set: {
 			estimatedValue: 	Number($('#estimatedValue').val()),
-			actualValue: 			function(){
-													if ($('#actualValue').val() === '' || $('#actualValue').val() === 0 ) {
-														return "not available yet"
-													} else {
-														return Number($('#actualValue').val());
-													}
-												},
+			actualValue: 			actualValue(),
 			openHour: 				$('#openHour').val(),
-			closeHour: 				$('#closeHour').val(),
+			closeHour: 				closeHour(),
 			open: 						$('#mktOpen').val(),
 			high: 						$('#mktHigh').val(),
 			low: 							$('#mktLow').val(),
@@ -53,6 +67,11 @@ Template.adminPanel.events({
 			multiplier:				$('#mktMultiplier').val(),
 			maxPosition:			$('#mktMaxPosition').val(),
 		}});
+
+		// If Actual Value
+		if ($('#actualValue').val() > 0 ) {
+
+		}
 	},
 
 	'click #open-market': function(e){
@@ -117,6 +136,10 @@ Template.adminPanel.helpers({
 	mktEstValue: function(){
 		return Markets.findOne().estimatedValue || '';
 	}, 
+
+	mktActValue: function(){
+		return Markets.findOne().actualValue || '';
+	},
 
 	mktMaxPosition: function(){
 		return Markets.findOne().maxPosition || '';
