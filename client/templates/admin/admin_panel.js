@@ -8,22 +8,6 @@ Template.adminPanel.onCreated(function(){
 	Session.set('sortOrder', { created_at: 1 });
 	Session.set('sortDirection', 1);
 
-	var market = Markets.findOne();
-	var currentEstimatedValue = Markets.estimatedValue;
-
-	$('#estimatedValue').val(market.estimatedValue);
-
-	if ( _.isNull(market.openHour) || _.isUndefined(market.openHour)) {
-		$('#openHour').val("9:00");
-	} else {
-		$('#openHour').val(market.openHour);
-	}
-
-	if ( _.isNull(market.closeHour) || _.isUndefined(market.closeHour))  {
-		$('#closeHour').val("13:30");
-	} else {
-		$('#closeHour').val(market.closeHour);
-	}
 });
 
 
@@ -44,7 +28,7 @@ Template.adminPanel.events({
 
 		var closeHour = function(){
 					// close market if actual value given
-					if (Number($('#actualValue').val()) > 0) {
+					if ((Number($('#actualValue').val()) > 0) && ($('#closeHour').val() === '' )) {
 						var closeTime = new Date();
 						return moment(closeTime).format("HH:MM");
 					}

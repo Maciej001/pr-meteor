@@ -50,22 +50,38 @@ Template.adminPrices.events({
 
 		// Remove order from Bids or Offers collection
 		if (order.side === 'buy') {
+			
 			var bid = Bids.findOne({ prices: order._id });
 
-			Bids.update({ _id: bid._id }, 
-				{ $inc:  { size_left: -order.size_left },
-				  $pull: { prices: order._id } 
-				}
-			);
+			// If order and bid size left the same,
+			// It is the only order of the bid
+			// If you delete the order, delete the bid as well
+			if (bid.size_left === order.size_left) {
+				Bids.remove({ _id: bid._id })
+			}
+			else {
+				Bids.update({ _id: bid._id }, 
+					{ $inc:  { size_left: -order.size_left },
+					  $pull: { prices: order._id } 
+					}
+				);
+			}
+
+
 		}
 		else {
 			var offer = Offers.findOne({ prices: order._id });
 
-			Offers.update({ _id: offer._id },
-				{ $inc: 	{ size_left: -order.size_left},
-					$pull: 	{ prices: order._id }
-				}
-			);
+			if (offer.size_left === order.size_left) {
+				Offers.remove({ _id: offer._id })
+			}
+			else {
+				Offers.update({ _id: offer._id },
+					{ $inc: 	{ size_left: -order.size_left},
+						$pull: 	{ prices: order._id }
+					}
+				);
+			}	
 		}
 
 		// Remove order

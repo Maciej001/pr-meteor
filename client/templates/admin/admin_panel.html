@@ -3,9 +3,30 @@
 <div class="container-fluid" id="admin-panel">
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-12 col-md-4">
+			<div class="col-xs-12 col-md-4 admin-form">
+				<h4>MARKET SETUP</h4>
 
-				<form class="form-horizontal admin-form">
+				{{#autoForm collection="Markets" doc=market id="updateMarketForm" type="update"}}
+			    <fieldset>
+			      {{> afQuickField name='estimatedValue'}}
+			      {{> afQuickField name='actualValue'}}
+			      {{> afQuickField name='openHour'}}
+			      {{> afQuickField name='closeHour'}}
+			      {{> afQuickField name='open'}}
+			      {{> afQuickField name='high'}}
+			      {{> afQuickField name='low'}}
+			      {{> afQuickField name='last'}}
+			      {{> afQuickField name='multiplier'}}
+			      {{> afQuickField name='maxPosition'}}
+			    </fieldset>
+			    <button type="submit" class="btn btn-primary">Insert</button>
+			    <button type="button" class="cancel btn grey">Cancel</button>
+			  {{/autoForm}}
+
+
+
+
+				<!-- <form class="form-horizontal admin-form">
 					<h4>MARKET SETUP</h4>
 					
 				  <div class="form-group form-number">
@@ -69,7 +90,7 @@
 				  </div>
 
 				</form>
-				
+				 -->
 				
 				<div class="margin-top-20 open-market">
 					<h4>MARKET IS {{ marketState }}</h4>
