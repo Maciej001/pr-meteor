@@ -3,6 +3,13 @@
 Template.market.onCreated(function() {
 	Session.setDefault('newOrder', false);
 
+	Tracker.autorun( function(){
+		var market = Markets.findOne({});
+		if (new Date(Session.get("currentTime")) > market.closeHour) {
+				Markets.update(market, { $set: { state: 'closed' } });
+		}
+	});
+
 });
 
 Template.market.onRendered(function(){
