@@ -168,11 +168,14 @@
 	color: $red;
 }
 
-#my-open-position {
+#my-open-position, .current-time {
 	background: $dark-blue;
-	h4 {
+	h4,h5 {
 		color: white;
 		opacity: 0.8;
+	}
+	h5 {
+		padding-top: 3px;
 	}
 }
 
@@ -184,6 +187,5 @@
 		opacity: 0.9;
 	}
 }
-
 
 

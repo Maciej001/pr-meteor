@@ -1,7 +1,7 @@
 // set the newOrder to false, so that within market 
 // only button is displayed and not full form
 Template.market.onCreated(function() {
-	Session.set('newOrder', false);
+	Session.setDefault('newOrder', false);
 
 });
 
@@ -23,6 +23,10 @@ Template.market.helpers({
 		} else {
 			return "newOrderButton";
 		}
+	},
+
+	currentTime: function(){
+		return moment(Session.get('currentTime')).format("HH:mm:ss");
 	},
 
 	openPosition: function(){
