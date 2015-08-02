@@ -7,6 +7,7 @@
 				<h4>MARKET SETUP</h4>
 
 				{{#autoForm collection="Markets" doc=market id="updateMarketForm" type="update"}}
+
 			    <fieldset>
 			      {{> afQuickField name='estimatedValue'}}
 			      {{> afQuickField name='actualValue'}}
@@ -19,78 +20,11 @@
 			      {{> afQuickField name='multiplier'}}
 			      {{> afQuickField name='maxPosition'}}
 			    </fieldset>
-			    <button type="submit" class="btn btn-primary">Insert</button>
+
+			    <button type="submit" class="btn btn-primary">Save</button>
 			    <button type="button" class="cancel btn grey">Cancel</button>
+			    
 			  {{/autoForm}}
-
-
-
-
-				<!-- <form class="form-horizontal admin-form">
-					<h4>MARKET SETUP</h4>
-					
-				  <div class="form-group form-number">
-				    <label for="estimatedValue" class="col-xs-6">Estimated Value</label>
-				    <div class="input-group">
-							<input type="number" class="form-control col-xs-6" id="estimatedValue" value="{{mktEstValue}}">
-							<div class="input-group-addon">,000</div>
-						</div>
-				  </div>
-
-				  <div class="form-group form-number">
-				    <label for="actualValue" class="col-xs-6">Actual Value</label>
-				    <div class="input-group">
-					    <input type="number" class="form-control col-xs-6" id="actualValue" value="{{mktActValue}}">
-					    <div class="input-group-addon">,000</div>
-				    </div>
-				  </div>
-				  
-				  <div class="form-group form-hour">
-				    <label for="openHour" class="col-xs-6">Market opens at</label>
-				    <input type="hour" class="form-control col-xs-6" id="openHour" value="{{mktOpenHour}}">
-				  </div>
-
-				  <div class="form-group form-hour">
-				    <label for="closeHour" class="col-xs-6">Market closes at</label>
-				    <input type="hour" class="form-control col-xs-6" id="closeHour" value="{{mktCloseHour}}">
-				  </div>
-
-				  <div class="form-group form-hour">
-				    <label for="mktOpen" class="col-xs-6">Open</label>
-				    <input type="number" class="form-control col-xs-6" id="mktOpen" value="{{mktOpen}}">
-				  </div>
-
-				  <div class="form-group form-hour">
-				    <label for="mktHigh" class="col-xs-6">High</label>
-				    <input type="number" class="form-control col-xs-6" id="mktHigh" value="{{mktHigh}}">
-				  </div>
-
-				  <div class="form-group form-hour">
-				    <label for="mktLow" class="col-xs-6">Low</label>
-				    <input type="number" class="form-control col-xs-6" id="mktLow" value="{{mktLow}}">
-				  </div>
-
-				  <div class="form-group form-hour">
-				    <label for="mktLast" class="col-xs-6">Close</label>
-				    <input type="number" class="form-control col-xs-6" id="mktClose" value="{{mktLast}}">
-				  </div>
-
-				  <div class="form-group form-hour">
-				    <label for="mktMultiplier" class="col-xs-6">Multiplier</label>
-				    <input type="number" class="form-control col-xs-6" id="mktMultiplier" value="{{mktMultiplier}}">
-				  </div>
-
-				  <div class="form-group form-hour">
-				    <label for="mktMaxPosition" class="col-xs-6">Maximum Position</label>
-				    <input type="number" class="form-control col-xs-6" id="mktMaxPosition" value="{{mktMaxPosition}}">
-				  </div>
-
-				  <div class="form-group">
-				      <button type="submit" class="btn btn-warning">Save Market</button>
-				  </div>
-
-				</form>
-				 -->
 				
 				<div class="margin-top-20 open-market">
 					<h4>MARKET IS {{ marketState }}</h4>
