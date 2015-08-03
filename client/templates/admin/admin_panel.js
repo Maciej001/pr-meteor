@@ -42,57 +42,6 @@ Template.adminPanel.events({
 });
 
 
-AutoForm.hooks({
-	updateMarketForm: {
-		// Reads from Mongo in open and close time and returns in form "11:30"
-		docToForm: function(doc) {
-
-			if (doc.openHour === null || doc.openHour === undefined || !('openHour' in doc)){ 
-				doc.openHour = "";
-				
-			} else  {
-				var openHour = new Date(doc.openHour);
-				doc.openHour = 	openHour.getHours() + ':' + openHour.getMinutes();
-			}
-			
-			if (doc.closeHour !== null || doc.closeHour !== undefined || 'closeHour' in doc){ 
-				var closeHour = new Date(doc.closeHour);
-				doc.closeHour = 	closeHour.getHours() + ':' + closeHour.getMinutes();
-			} else  {
-				doc.closeHour = "";
-			}		
-
-			return doc;
-
-		},
-		// From form's "11:30" to new Date with properly set hour  and minutes
-		formToDoc: function(doc){
-			console.log('before ', doc);
-			var openTime = new Date(),
-					closeTime = new Date(),
-					open = doc.openHour, 
-					close = doc.closeHour,
-					openHours = 		Number(doc.openHours.substr(0, doc.openHours.indexOf(':'))),
-					openMinutes = 	Number(doc.openHours.substr(doc.openHours.indexOf(':'))),
-					closeHours = 		Number(doc.closeHours.substr(0, doc.closeHours.indexOf(':'))),
-					closeMinutes = 	Number(doc.closeHours.substr(doc.closeHours.indexOf(':')));
-
-			openTime.setHours(openHours);
-			openTime.setMinutes(openMinutes);
-
-			closeTime.setHours(closeHours);
-			closeTime.setMinutes(closeMinutes);
-
-			doc.openHour = openTime;
-			doc.closeHour = closeTime;
-
-			return doc;
-
-		}
-	}
-});
-
-
 
 // HELPERS
 
