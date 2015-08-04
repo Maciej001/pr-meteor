@@ -4,11 +4,12 @@
 
 Template.adminPanel.onCreated(function(){
 
-	// Initialization
 	Session.set('sortOrder', { created_at: 1 });
 	Session.set('sortDirection', 1);
 
-});
+}); // onCreated ends
+
+
 
 
 // EVENTS

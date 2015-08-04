@@ -31,5 +31,5 @@ Meteor.publish('portfolios', function(){
 });
 
 Meteor.publish('markets', function(){
-	return Markets.find({}, { limit: 1 });
+	return Markets.find();
 });
