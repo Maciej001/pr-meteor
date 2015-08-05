@@ -7,6 +7,10 @@ Meteor.setInterval(function(){
 	});
 }, 1000);
 
+
+// Tracker tracks current time and opens or closes market
+// if its after openHour and after closeHour;
+
 Meteor.subscribe('markets', function(){
 	Tracker.autorun(function(){
 		var market = Markets.findOne(),
@@ -14,6 +18,7 @@ Meteor.subscribe('markets', function(){
 
 		if(_.isString(market.openHour)) {
 		
+			// translate "9:30" openHour to Date format
 			var openHour = Number(market.openHour.substr(0, market.openHour.indexOf(':'))),
 					openMinutes = Number(market.openHour.substr(market.openHour.indexOf(':') + 1)),
 					openTime = new Date();
@@ -25,6 +30,8 @@ Meteor.subscribe('markets', function(){
 		} // openingHour
 
 		if (_.isString(market.closeHour)) {
+
+			// translate "11:30" closeHour to Date format
 			var closeHour = Number(market.closeHour.substr(0, market.closeHour.indexOf(':'))),
 					closeMinutes = Number(market.closeHour.substr(market.closeHour.indexOf(':') + 1)),
 					closeTime = new Date();

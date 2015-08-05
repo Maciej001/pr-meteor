@@ -29,7 +29,9 @@ Template.adminPanel.events({
 		var market = Markets.findOne();
 		Markets.update(market._id, { $set: { state: "closed" } });
 
-		Meteor.call('closeMarket');
+		// set closeHour to now, so the tracker function from clock.js
+		// treats the market as closed as well
+		
 
 	},
 
@@ -61,6 +63,37 @@ Template.adminPanel.helpers({
 		return Markets.findOne({});
 	}
 
+});
+
+
+// AUTOFORM HOOKS
+
+AutoForm.hooks({
+	updateMarketForm: {
+
+		// Store Actual Value in Session variable so onSuccess can use it
+		before: {
+			update: function(doc) {
+				var actualValue = doc.$set.actualValue;
+				if ( actualValue !== '' && !_.isUndefined(actualValue) ) {
+					Session.set('ActualValue', doc.$set.actualValue);
+				} else {
+					Session.set('ActualValue', '');
+				}
+				return doc;
+			}
+		},
+
+		// If form submitted successfully
+		onSuccess: function(error, result) {
+			var actualValue = Session.get('ActualValue');
+			if (result &&  actualValue !== '') {
+				console.log('actualValue', actualValue);
+			} else {
+				console.log('dupa nie ma nic!');
+			}
+		}
+	}
 });
 
 
