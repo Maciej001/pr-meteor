@@ -8,6 +8,14 @@ if (Meteor.isServer) {
 			});
 
 			Roles.addUsersToRoles(id, ['admin']);
+
+			id = Accounts.createUser({
+				email: "wojtek@gmail.com",
+				password: "korek001"
+			});
+
+			Roles.addUsersToRoles(id, ['admin']);
+
 		}	
 
 		// Add Market collection - it contains ONE element

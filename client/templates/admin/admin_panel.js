@@ -29,9 +29,11 @@ Template.adminPanel.events({
 		Markets.update(market._id, { $set: { 
 					state: "open", 
 					openHour: hour + ":" + minutes,
-					closeHour: hour + ":" + minutes_plus
+					closeHour: hour + ":" + minutes_plus,
+					actualValue: ''
 				} 
 		});
+
 	},
 
 	'click #close-market': function(e){

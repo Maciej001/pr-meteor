@@ -22,7 +22,7 @@ Template.sessionStatistics.helpers({
 			return {
 				numberOfTrades: 				portfolio.numberOfTrades || 0,
 				contractsTraded: 				portfolio.contractsTraded || 0,
-				openPosition: 					commaSeparateNumber(portfolio.openPosition) || 'NA',
+				openPosition: 					commaSeparateNumber(portfolio.openPosition) || 0,
 				avgOpenPositionPrice: 	formatForDisplay(portfolio.avgOpenPositionPrice) || 'NA',
 				openPositionValue:    	formatForDisplay(portfolio.openPositionValue) || 'NA',
 				cash: 									formatForDisplay(portfolio.cash),
