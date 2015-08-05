@@ -19,20 +19,31 @@ Template.adminPanel.events({
 	'click #open-market': function(e){
 		e.preventDefault();
 
+		// set openHour to now  and closeHour to now plus 15 minutes
+		var now = new Date(), 
+				hour = now.getHours(),
+				minutes = now.getMinutes(),
+				minutes_plus = minutes + 15;
+
 		var market = Markets.findOne();
-		Markets.update(market._id, { $set: { state: "open" } });
+		Markets.update(market._id, { $set: { 
+					state: "open", 
+					openHour: hour + ":" + minutes,
+					closeHour: hour + ":" + minutes_plus
+				} 
+		});
 	},
 
 	'click #close-market': function(e){
 		e.preventDefault();
 
 		var market = Markets.findOne();
-		Markets.update(market._id, { $set: { state: "closed" } });
-
-		// set closeHour to now, so the tracker function from clock.js
-		// treats the market as closed as well
-		
-
+		Markets.update(market._id, { $set: { 
+				state: "closed",
+				openHour: "",
+				closeHour: ""
+			} 
+		});
 	},
 
 	'click #remove-prices': function(){
