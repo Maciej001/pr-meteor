@@ -1,41 +1,39 @@
 // Ask server for Current time and set Session variable
 Meteor.setInterval(function(){
-	Meteor.call("getServerTime", function(error, result){
-		Session.set("currentTime", result);
-	});
+		var now = new Date();
+		Session.set("currentTime", now);
+		checkMarketState();
 }, 1000);
 
+function checkMarketState() {
+	Meteor.subscribe('markets', function(){
 
-Meteor.subscribe('markets', function(){
-	Tracker.autorun(function(){
+			var market = Markets.findOne(),
+					openingTime, closingTime,
+					now = new Date(),
+					timezoneOffset = now.getTimezoneOffset();
 
-		var market = Markets.findOne(),
-		now = new Date(TimeSync.serverTime());
-		var openTime, closeTime;
+			now.setHours(now.getHours() + timezoneOffset/60);
 
-		if(_.isString(market.openHour)) {
-			openTime = Meteor.call("getDateFromTimeString", market.openHour);
-		}
+			if(_.isDate(market.openingHour)) 
+				openingTime = market.openingHour;
 
-		if (_.isString(market.closeHour)) 
-			Meteor.call("getDateFromTimeString", market.closeHour, function(err, result){
-				closeTime = result;
-			});
+			if (_.isDate(market.closingHour)) 
+				closingTime = market.closingHour;
 
+			// Open market if not opened yet and now is after opening and before closing time
+			if (openingTime && closingTime)
+				if (market.state === "closed" && now >= openingTime && now < closingTime)  {
+					Markets.update(market._id, { $set: { state: "open" } });
+				}
 
-		// Open market if not opened yet and now is after opening and before closing time
-		if (market.state === "closed" && now >= openTime && now < closeTime)  {
-			Markets.update(market._id, { $set: { state: "open" } });
-		}
+			// Close market if market was open and closing time passed
+			if (closingTime)
+				if (market.state === "open" && now >= closingTime ) {
+					Markets.update(market._id, { $set: { state: "closed" } });
+				}
 
-		// Close market if market was open and closing time passed
-		if (market.state === "open" && now >= closeTime ) {
-			Markets.update(market._id, { $set: { state: "closed" } });
-		}
-		
-	}); // autorun ends
-
-});
-
+	});
+}
 
 

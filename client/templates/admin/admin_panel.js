@@ -16,24 +16,21 @@ Template.adminPanel.events({
 	'click #open-market': function(e){
 		e.preventDefault();
 
-		// set openHour to now  and closeHour to now plus 15 minutes
-		var now = new Date(TimeSync.serverTime()), 
-				hour = now.getHours(),
-				minutes = now.getMinutes(),
-				minutes_plus = minutes + 15;
+		// set openHour to now and closeHour to now plus 15 minutes
+		var now = new Date(), 
+				timezoneOffset = now.getTimezoneOffset();
 
-		if (minutes_plus >= 60) {
-			minutes_plus %= 60;
-			hour +=1;
-			if (hour >= 24)
-				hour %= 24;
-		}
+		now.setHours(now.getHours() + timezoneOffset/60);
 
-		var market = Markets.findOne();
+		var market = Markets.findOne(),
+				in15Minutes = new Date(now.getTime());
+
+		in15Minutes.setMinutes(in15Minutes.getMinutes() + 15);
+
 		Markets.update(market._id, { $set: { 
 					state: "open", 
-					openHour: hour + ":" + minutes,
-					closeHour: hour + ":" + minutes_plus,
+					openingHour: now,
+					closingHour: in15Minutes,
 					actualValue: ''
 				} 
 		});
@@ -45,8 +42,8 @@ Template.adminPanel.events({
 		var market = Markets.findOne();
 		Markets.update(market._id, { $set: { 
 				state: "closed",
-				openHour: "",
-				closeHour: ""
+				openingHour: "",
+				closingHour: ""
 			} 
 		});
 	},
@@ -80,23 +77,37 @@ Template.adminPanel.helpers({
 	},
 
 	openingHour: function(){
-		var market = Markets.findOne(),
-		openingHour = market.openingHour,
-		clientTime = new Date();
+		var market = Markets.findOne();
 
-		openingHour.setHours(market.openingHour.getHours() - clientTime.getTimezoneOffset()/60);
+		if (market.openingHour !== "") {
 
-		return openingHour.getHours() + ":" + openingHour.getMinutes();
+			var openingHour = market.openingHour,
+			clientTime = new Date();
+
+			openingHour.setHours(market.openingHour.getHours() - clientTime.getTimezoneOffset()/60);
+
+			return openingHour.getHours() + ":" + openingHour.getMinutes();
+
+		} else {
+		
+			return "";		
+		}
 	},
 
 	closingHour: function(){
-		var market = Markets.findOne(),
-		closingHour = market.closingHour,
-		clientTime = new Date();
+		var market = Markets.findOne();
 
-		closingHour.setHours(market.closingHour.getHours() - clientTime.getTimezoneOffset()/60);
+		if (market.closingHour !== "") {
+			closingHour = market.closingHour,
+			clientTime = new Date();
 
-		return closingHour.getHours() + ":" + closingHour.getMinutes();
+			closingHour.setHours(market.closingHour.getHours() - clientTime.getTimezoneOffset()/60);
+
+			return closingHour.getHours() + ":" + closingHour.getMinutes();
+		} else {
+
+			return "";
+		}
 	}
 
 });
