@@ -22,6 +22,7 @@ if (Meteor.isServer) {
 		if (Markets.find().count() === 0) {
 			Markets.insert({
 				state: "closed",
+				estimatedValue: '',
 				multiplier: 10,
 				maxPosition: 250,
 				total_contracts_traded: 0,

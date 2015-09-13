@@ -1,5 +1,3 @@
-
-
 // INITIALIZERS
 
 Template.adminPanel.onCreated(function(){
@@ -11,7 +9,6 @@ Template.adminPanel.onCreated(function(){
 
 
 
-
 // EVENTS
 
 Template.adminPanel.events({
@@ -20,10 +17,17 @@ Template.adminPanel.events({
 		e.preventDefault();
 
 		// set openHour to now  and closeHour to now plus 15 minutes
-		var now = new Date(), 
+		var now = new Date(TimeSync.serverTime()), 
 				hour = now.getHours(),
 				minutes = now.getMinutes(),
 				minutes_plus = minutes + 15;
+
+		if (minutes_plus >= 60) {
+			minutes_plus %= 60;
+			hour +=1;
+			if (hour >= 24)
+				hour %= 24;
+		}
 
 		var market = Markets.findOne();
 		Markets.update(market._id, { $set: { 
@@ -33,7 +37,6 @@ Template.adminPanel.events({
 					actualValue: ''
 				} 
 		});
-
 	},
 
 	'click #close-market': function(e){
@@ -74,6 +77,26 @@ Template.adminPanel.helpers({
 
 	market: function(){
 		return Markets.findOne({});
+	},
+
+	openingHour: function(){
+		var market = Markets.findOne(),
+		openingHour = market.openingHour,
+		clientTime = new Date();
+
+		openingHour.setHours(market.openingHour.getHours() - clientTime.getTimezoneOffset()/60);
+
+		return openingHour.getHours() + ":" + openingHour.getMinutes();
+	},
+
+	closingHour: function(){
+		var market = Markets.findOne(),
+		closingHour = market.closingHour,
+		clientTime = new Date();
+
+		closingHour.setHours(market.closingHour.getHours() - clientTime.getTimezoneOffset()/60);
+
+		return closingHour.getHours() + ":" + closingHour.getMinutes();
 	}
 
 });
@@ -81,31 +104,56 @@ Template.adminPanel.helpers({
 
 // AUTOFORM HOOKS
 
+var getDateFromTimeString = function(time) {
+		var hour = Number(time.substr(0, time.indexOf(':'))),
+		minutes = Number(time.substr(time.indexOf(':') + 1)),
+		new_time = new Date();
+
+		new_time.setHours(hour);
+		new_time.setMinutes(minutes);
+		new_time.setSeconds(0);
+		new_time.setMilliseconds(0);
+
+		return new_time;
+	}
+
 AutoForm.hooks({
 	updateMarketForm: {
 
-		// Store Actual Value in Session variable so onSuccess can use it
 		before: {
 			update: function(doc) {
+				var	clientTime = new Date(),
+						timezoneOffset = clientTime.getTimezoneOffset();
+
+				if (doc.$set.openHour) {
+					var openHour = getDateFromTimeString(doc.$set.openHour);  
+
+					openHour.setHours(openHour.getHours() + timezoneOffset/60);
+					doc.$set.openingHour = openHour;
+				}
+
+				if (doc.$set.closeHour) {
+					var closeHour	= getDateFromTimeString(doc.$set.closeHour);
+
+					closeHour.setHours(closeHour.getHours() + timezoneOffset/60);
+					doc.$set.closingHour = closeHour;
+				}
+
+				// reset openHour and closeHour to ''
+				doc.$set.openHour = '';
+				doc.$set.closeHour = '';
+
 				var actualValue = doc.$set.actualValue;
+
 				if ( actualValue !== '' && !_.isUndefined(actualValue) ) {
 					Session.set('ActualValue', doc.$set.actualValue);
 				} else {
 					Session.set('ActualValue', '');
 				}
+
 				return doc;
 			}
 		},
-
-		// If form submitted successfully
-		onSuccess: function(error, result) {
-			var actualValue = Session.get('ActualValue');
-			if (result &&  actualValue !== '') {
-				console.log('actualValue', actualValue);
-			} else {
-				console.log('dupa nie ma nic!');
-			}
-		}
 	}
 });
 

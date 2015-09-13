@@ -33,27 +33,36 @@ Template.market.helpers({
 	},
 
 	currentTime: function(){
+		// return moment.tz(Session.get('currentTime'), "Europe/London").format("HH:mm:ss");
 		return moment(Session.get('currentTime')).format("HH:mm:ss");
 	},
 
 	openPosition: function(){
 		if (Meteor.user()){
-			var openPosition = Meteor.user().openPosition();
+			var market = Markets.findOne();
 
-			if (openPosition === -1) {
-				return " 1 contract short";
-			} 
-			else if (openPosition < -1) {
-				return Math.abs(openPosition) + " contracts short";
-			}
-			else if (openPosition === 0) {
-				return " square";
-			} 
-			else if (openPosition === 1) {
-				return " 1 contract long";
+			// If actualValue is known open position is 0 -> 'square'
+			if (market.actualValue !== '' && !_.isUndefined(market.actualValue)) {
+				return 'square'
 			} 
 			else {
-				return openPosition + " contracts long";
+				var openPosition = Meteor.user().openPosition();
+
+				if (openPosition === -1) {
+					return " 1 contract short";
+				} 
+				else if (openPosition < -1) {
+					return Math.abs(openPosition) + " contracts short";
+				}
+				else if (openPosition === 0) {
+					return " square";
+				} 
+				else if (openPosition === 1) {
+					return " 1 contract long";
+				} 
+				else {
+					return openPosition + " contracts long";
+				}
 			}
 		}
 

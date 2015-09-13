@@ -21,3 +21,6 @@ d3js:d3
 momentjs:moment
 aldeed:collection2
 aldeed:autoform
+aldeed:moment-timezone
+mizzao:timesync
+em0ney:jstz

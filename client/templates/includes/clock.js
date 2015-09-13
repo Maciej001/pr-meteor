@@ -1,6 +1,4 @@
-
 // Ask server for Current time and set Session variable
-
 Meteor.setInterval(function(){
 	Meteor.call("getServerTime", function(error, result){
 		Session.set("currentTime", result);
@@ -8,39 +6,22 @@ Meteor.setInterval(function(){
 }, 1000);
 
 
-// Tracker tracks current time and opens or closes market
-// if its after openHour and after closeHour;
-
 Meteor.subscribe('markets', function(){
 	Tracker.autorun(function(){
+
 		var market = Markets.findOne(),
-		now = Session.get("currentTime");
+		now = new Date(TimeSync.serverTime());
+		var openTime, closeTime;
 
 		if(_.isString(market.openHour)) {
-		
-			// translate "9:30" openHour to Date format
-			var openHour = Number(market.openHour.substr(0, market.openHour.indexOf(':'))),
-					openMinutes = Number(market.openHour.substr(market.openHour.indexOf(':') + 1)),
-					openTime = new Date();
+			openTime = Meteor.call("getDateFromTimeString", market.openHour);
+		}
 
-					openTime.setHours(openHour);
-					openTime.setMinutes(openMinutes);
-					openTime.setSeconds(0);
-					openTime.setMilliseconds(0);
-		} // openingHour
+		if (_.isString(market.closeHour)) 
+			Meteor.call("getDateFromTimeString", market.closeHour, function(err, result){
+				closeTime = result;
+			});
 
-		if (_.isString(market.closeHour)) {
-
-			// translate "11:30" closeHour to Date format
-			var closeHour = Number(market.closeHour.substr(0, market.closeHour.indexOf(':'))),
-					closeMinutes = Number(market.closeHour.substr(market.closeHour.indexOf(':') + 1)),
-					closeTime = new Date();
-
-					closeTime.setHours(closeHour);
-					closeTime.setMinutes(closeMinutes);
-					closeTime.setSeconds(0);
-					closeTime.setMilliseconds(0);
-		} // closing Hour
 
 		// Open market if not opened yet and now is after opening and before closing time
 		if (market.state === "closed" && now >= openTime && now < closeTime)  {
@@ -53,6 +34,8 @@ Meteor.subscribe('markets', function(){
 		}
 		
 	}); // autorun ends
-}); // subscribe ends
+
+});
+
 
 
