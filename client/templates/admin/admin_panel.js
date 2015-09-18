@@ -86,7 +86,8 @@ Template.adminPanel.helpers({
 
 			openingHour.setHours(market.openingHour.getHours() - clientTime.getTimezoneOffset()/60);
 
-			return openingHour.getHours() + ":" + openingHour.getMinutes();
+
+			return openingHour.getHours() + ":" + openingHour.getMinutesTwoDigits();
 
 		} else {
 		
@@ -103,7 +104,7 @@ Template.adminPanel.helpers({
 
 			closingHour.setHours(market.closingHour.getHours() - clientTime.getTimezoneOffset()/60);
 
-			return closingHour.getHours() + ":" + closingHour.getMinutes();
+			return closingHour.getHours() + ":" + closingHour.getMinutesTwoDigits();
 		} else {
 
 			return "";
